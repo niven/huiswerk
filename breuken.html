@@ -1,6 +1,8 @@
 <html>
 
 <head>
+	
+<title>Breuken</title>	
 
 <style type="text/css">
 
@@ -22,12 +24,12 @@
 
 var WIDTH = 300;
 var HEIGHT = WIDTH;
-var Y_OFFSET = 40;
+var Y_OFFSET = HEIGHT/4;
 
 // ensure a/b where a<b
 function Breuk() {
 	
-	var denominator = 1 + Math.ceil(Math.random()*20);
+	var denominator = 1 + Math.ceil(Math.random()*19);
 	var numerator = Math.ceil(Math.random()*(denominator-1));
 	
 	return {
@@ -61,7 +63,7 @@ function draw_fraction_as_circle( canvas, rational, show_as_text ) {
 	
 	var mid = {
 		x: WIDTH/2,
-		y: HEIGHT/2 - Y_OFFSET
+		y: (HEIGHT - Y_OFFSET)/2
 	};
 	var radius = WIDTH/3;
 	
@@ -70,7 +72,7 @@ function draw_fraction_as_circle( canvas, rational, show_as_text ) {
 	var distance = (Math.PI * 2) / rational.den;
 	
 	ctx.fillStyle = "orange";
-	ctx.lineWidth = 4	;
+	ctx.lineWidth = 3;
 	for( var i=0; i<rational.den; i++ ) {
 		// draw a pie slice
 		ctx.lineTo( mid.x, mid.y );
@@ -91,8 +93,10 @@ function draw_fraction_as_circle( canvas, rational, show_as_text ) {
 // TODOs: font size as param, and derive Y locations from measureText
 function print_fraction( ctx, rational ) {
 	
-	ctx.font = "36px monospace";
+	var font_size_px = Math.ceil(HEIGHT / 10);
+	ctx.font = font_size_px + "px monospace";
 	ctx.fillStyle = "black";
+	ctx.lineWidth = 3;
 	
 	var n_width = ctx.measureText("" + rational.num).width;
 	var d_width = ctx.measureText("" + rational.den).width;
@@ -100,12 +104,12 @@ function print_fraction( ctx, rational ) {
 
 	
 	var x_start = WIDTH/2 - (bar_width/2);
-	ctx.moveTo( x_start, HEIGHT-Y_OFFSET);
-	ctx.lineTo( x_start+bar_width, HEIGHT-Y_OFFSET);
+	ctx.moveTo( x_start, HEIGHT - font_size_px + ctx.lineWidth);
+	ctx.lineTo( x_start+bar_width, HEIGHT - font_size_px + ctx.lineWidth);
 	ctx.stroke();
 
-	ctx.fillText("" + rational.num, WIDTH/2 - n_width/2, HEIGHT-50);
-	ctx.fillText("" + rational.den, WIDTH/2 - d_width/2, HEIGHT-10);
+	ctx.fillText("" + rational.num, WIDTH/2 - n_width/2, HEIGHT - font_size_px - ctx.lineWidth);
+	ctx.fillText("" + rational.den, WIDTH/2 - d_width/2, HEIGHT - ctx.lineWidth);
 	
 }
 
