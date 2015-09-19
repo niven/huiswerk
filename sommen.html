@@ -18,17 +18,40 @@
 	margin: 0 auto;
 }
 
+.deltaScore {
+	position:absolute;
+	font-size: large;
+	-webkit-transition: all 2s ease-out; /* Safari */
+    transition: all 2s ease-out;
+}
+
+.deltaScore.positive {
+	color: blue;
+}
+
+.deltaScore.negative {
+	color: red;
+}
+
 #stats {
 	background-color: wheat;
+	padding-bottom: 1em;
+}
+
+#stats tr {
+	vertical-align: top;
 }
 
 #score {
-	float: left;
+	text-align: left;
 }
 
+#bonus {
+	text-align: center;
+}
 
 #points {
-	float: right;
+	text-align: right;
 }
 
 .res_neutral {
@@ -166,6 +189,8 @@ var x;
 var y;
 var fails = [];
 var score = 0;
+var bonusMultiplier = 1;
+var multiplierReward = 0.2;
 var target = 0;
 var answer;
 var min_score = 4; // this is the min score. possible points are max( min_score, min(x, y) )
@@ -238,7 +263,8 @@ function countdown() {
 	if( elapsed_millis > extra_time_after_error + countdown_time[ current_sum.type == MUL ? "mul" : "div" ] ) {
 		document.getElementById("som").style.color = "powderblue";
 	}
-	document.getElementById("score").innerHTML = "HP: " + (target-score) + "<br><span class=\"timer\">tijd: " + timer_fmt.format( (Date.now() - begin_time) ) + "</span>";
+	document.getElementById("score").innerHTML = "HP: " + Math.round(target-score) + "<br><span class=\"timer\">tijd: " + timer_fmt.format( (Date.now() - begin_time) ) + "</span>";
+	document.getElementById("bonus").innerHTML = "Bonus: " + (Math.round(10*bonusMultiplier)/10);
 	document.getElementById("points").innerHTML = "Punten: " + time;
 }
 
@@ -292,19 +318,25 @@ function process(e) {
 
 		if( answer_result.correct ) {
 			max_correct++;
+			bonusMultiplier += multiplierReward;
 			res.innerHTML = max_correct + " Goed!";
 			res.style.backgroundColor = "springgreen";
-			score += time;
+			var scoreDelta = time * bonusMultiplier; 
+			score += scoreDelta;
 			stats[sum_type_name][current_sum.test_num].correct++;
 			extra_time_after_error = 0;
+			
+			showDeltaScore(-scoreDelta, document.getElementById("score"));
 		} else {
 			max_correct = 0;
+			bonusMultiplier = 1;
 			res.innerHTML = string_from_sum( current_sum ) + answer_result.right_answer + " 	(niet " + ans.value + ")";
 			res.style.backgroundColor = "tomato";
 			score -= 2;
 			stats[sum_type_name][current_sum.test_num].fail++;
 			failed_sums.push( current_sum );
-			extra_time_after_error = 3000; // extra time to read over the mistake			
+			extra_time_after_error = 3000; // extra time to read over the mistake
+			showDeltaScore(2, document.getElementById("score"));			
 		}
 		
 		clearInterval( intervalID );
@@ -328,6 +360,20 @@ function process(e) {
 		ans.value = ans.value.substring( 0, ans.value.length -1 );
 	}
 
+}
+
+function showDeltaScore(scoreDelta, scoreElement) {
+	
+	var scoreRect = scoreElement.getBoundingClientRect();
+	var deltaElement = document.createElement("div");
+	deltaElement.style["left"] = (scoreRect.right * 0.95) + "px";
+	deltaElement.style["top"] = scoreRect.top + "px";
+	deltaElement.className = "deltaScore " + (scoreDelta>0?"positive":"negative");
+	deltaElement.innerText = "" + Math.round(scoreDelta);
+	document.body.appendChild(deltaElement);
+	
+	setTimeout(function(){deltaElement.style["top"] = -10 + "px";}, 10);
+	setTimeout(function(){deltaElement.remove();}, 2000);
 }
 
 function start() {
@@ -525,8 +571,16 @@ function showResults(title, numbers, stats) {
 
 <div id="main" style="display: none;">
 <div id="stats" class="box">
-	<div id="score">Score: 0</div>
-	<div id="points">Punten: 0</div>
+	<table style="width:100%">
+		<tbody>
+			<tr>
+				<td id="score">Score: 0<td>
+				<td id="bonus">Bonus: 0<td>
+				<td id="points">Punten: 0<td>
+			</tr>
+		</tbody>
+	</table>
+	
 </div>
 
 <div id="res" class="res_neutral"></div>
