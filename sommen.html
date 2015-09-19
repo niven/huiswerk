@@ -319,7 +319,7 @@ function process(e) {
 		ans.value = "";
 		document.getElementById("som").style.color = "black";
 		ans.select();
-	} else if( e.keyCode >= 48 && e.keyCode <= 57 ) {
+	} else if( (e.keyCode >= 48 && e.keyCode <= 57) || (e.keyCode >= 96 && e.keyCode <= 105) ) {
 		// accept digits
 	} else if( e.keyCode == 8 || e.keyCode == 32 ) {
 		// swallow backspace to avoid double deletion
