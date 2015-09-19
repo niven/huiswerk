@@ -22,11 +22,12 @@
 
 var WIDTH = 300;
 var HEIGHT = WIDTH;
+var Y_OFFSET = 40;
 
 // ensure a/b where a<b
 function Breuk() {
 	
-	var denominator = 1 + Math.ceil(Math.random()*9);
+	var denominator = 1 + Math.ceil(Math.random()*20);
 	var numerator = Math.ceil(Math.random()*(denominator-1));
 	
 	return {
@@ -51,7 +52,7 @@ function Cmp( fraction_a, fraction_b ) {
 	
 }
 
-function draw_fraction_as_circle( canvas, rational ) {
+function draw_fraction_as_circle( canvas, rational, show_as_text ) {
 	
 	canvas.width = WIDTH;
 	canvas.height = HEIGHT;
@@ -60,7 +61,7 @@ function draw_fraction_as_circle( canvas, rational ) {
 	
 	var mid = {
 		x: WIDTH/2,
-		y: HEIGHT/2
+		y: HEIGHT/2 - Y_OFFSET
 	};
 	var radius = WIDTH/3;
 	
@@ -82,6 +83,30 @@ function draw_fraction_as_circle( canvas, rational ) {
 		ctx.stroke(path);	
 	}
 
+	if( show_as_text ) {
+		print_fraction( ctx, rational );
+	}
+	
+}
+
+// TODOs: font size as param, and derive Y locations from measureText
+function print_fraction( ctx, rational ) {
+	
+	ctx.font = "36px monospace";
+	ctx.fillStyle = "black";
+	
+	var n_width = ctx.measureText("" + rational.num).width;
+	var d_width = ctx.measureText("" + rational.den).width;
+	var bar_width = n_width > d_width ? n_width : d_width;
+
+	
+	var x_start = WIDTH/2 - (bar_width/2);
+	ctx.moveTo( x_start, HEIGHT-Y_OFFSET);
+	ctx.lineTo( x_start+bar_width, HEIGHT-Y_OFFSET);
+	ctx.stroke();
+
+	ctx.fillText("" + rational.num, WIDTH/2 - n_width/2, HEIGHT-50);
+	ctx.fillText("" + rational.den, WIDTH/2 - d_width/2, HEIGHT-10);
 	
 }
 
@@ -104,8 +129,8 @@ function make_frac() {
 	
 	state.largest_fraction = ( state.fraction_b.den * state.fraction_a.num ) > ( state.fraction_a.den * state.fraction_b.num ) ? "A" : "B";
 	
-	draw_fraction_as_circle( document.getElementById('fraction_a'), state.fraction_a );
-	draw_fraction_as_circle( document.getElementById('fraction_b'), state.fraction_b );
+	draw_fraction_as_circle( document.getElementById('fraction_a'), state.fraction_a, true );
+	draw_fraction_as_circle( document.getElementById('fraction_b'), state.fraction_b, true );
 }
 
 function check( canvas_el ) {
