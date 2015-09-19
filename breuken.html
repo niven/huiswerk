@@ -1,0 +1,149 @@
+<html>
+
+<head>
+
+<style type="text/css">
+
+.fraction {
+	background-color: wheat;
+	border: thick solid deepskyblue;
+	border-radius: 0.5em;
+	margin-right: 5%;
+}
+
+.fraction:hover {
+	border: thick solid green;
+	cursor: pointer;
+}
+
+</style>
+
+<script type="text/javascript">
+
+var WIDTH = 300;
+var HEIGHT = WIDTH;
+
+// ensure a/b where a<b
+function Breuk() {
+	
+	var denominator = 1 + Math.ceil(Math.random()*9);
+	var numerator = Math.ceil(Math.random()*(denominator-1));
+	
+	return {
+		num: numerator,
+		den: denominator
+	};
+}
+
+function Cmp( fraction_a, fraction_b ) {
+	
+	var val_a = fraction_a.num * fraction_b.den;
+	var val_b = fraction_b.num * fraction_a.den;
+	
+	if( val_a > val_b ) {
+		return 1;
+	}
+	if( val_b > val_a ) {
+		return -1;
+	}
+	
+	return 0;
+	
+}
+
+function draw_fraction_as_circle( canvas, rational ) {
+	
+	canvas.width = WIDTH;
+	canvas.height = HEIGHT;
+	
+	var ctx = canvas.getContext("2d");
+	
+	var mid = {
+		x: WIDTH/2,
+		y: HEIGHT/2
+	};
+	var radius = WIDTH/3;
+	
+	ctx.fillStyle = "rgb(255,255,255)";
+	ctx.fillRect(0, 0, WIDTH, HEIGHT);
+	var distance = (Math.PI * 2) / rational.den;
+	
+	var path = new Path2D();
+
+	ctx.fillStyle = "orange";
+	ctx.lineWidth = 4	;
+	for( var i=0; i<rational.den; i++ ) {
+		path.lineTo( mid.x, mid.y );
+		path.arc( mid.x, mid.y, radius, 0, (i+1)*distance, false); // first arc
+		path.lineTo( mid.x, mid.y );
+		if( i < rational.num ) {
+			ctx.fill(path);
+		}
+		ctx.stroke(path);	
+	}
+
+	
+}
+
+var state = {
+	"fraction_a": 0,
+	"fraction_b": 0,
+	"correct": 0,
+	"fail": 0,
+	"goal": 30,
+	"min_correct_ratio": 90/100,
+};
+
+
+function make_frac() {
+	
+	state.fraction_a = state.fraction_b = Breuk();
+	do {
+		state.fraction_b = Breuk();
+	} while( Cmp( state.fraction_a, state.fraction_b ) == 0 );
+	
+	state.largest_fraction = ( state.fraction_b.den * state.fraction_a.num ) > ( state.fraction_a.den * state.fraction_b.num ) ? "A" : "B";
+	
+	draw_fraction_as_circle( document.getElementById('fraction_a'), state.fraction_a );
+	draw_fraction_as_circle( document.getElementById('fraction_b'), state.fraction_b );
+}
+
+function check( canvas_el ) {
+
+	var cmp = Cmp(state.fraction_a, state.fraction_b);
+	var correct = (canvas_el.id == "fraction_a" && cmp == 1) || (canvas_el.id == "fraction_b" && cmp == -1);
+
+	state.correct += correct;
+	state.fail += 1-correct;
+	
+	var score = document.getElementById("score");
+	score.innerHTML = state.correct + " Goed - " + state.fail + " Fout";
+	
+	if( state.correct >= state.goal ) {
+		var correct_ratio = state.correct / (state.correct + state.fail);
+		if( correct_ratio >= state.min_correct_ratio ) {
+			score.innerHTML = "KLAAR!";
+		}
+	}
+
+	
+	make_frac();
+	
+}
+
+
+</script>
+
+</head>
+
+<body onload="make_frac();">
+
+<h2>Klik op de breuk die groter is</h2>
+
+<canvas class="fraction" id="fraction_a" onclick="check(this);"></canvas>
+<canvas class="fraction" id="fraction_b" onclick="check(this);"></canvas>
+
+<h2 id="score"></h2>
+
+</body>
+</html>
