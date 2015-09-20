@@ -1,11 +1,11 @@
-levels.unshift( new Level0() );
+levels.unshift( new Level1() );
 
-function Level0() {
+function Level1() {
 	
 	return {
 		"data": function() {
 			return {
-				"name": "Grootste Breuk",
+				"name": "Welke breuk is anders?",
 				"correct_to_pass": 10,
 				"fail_extra": 5,
 			}
@@ -35,10 +35,9 @@ function Level0() {
 
 		"make": function( state ) {
 
-			state.fraction_a = state.fraction_b = Rational( 10 );
-			console.log("made a");
+			state.fraction_a = state.fraction_b = Rational();
 			do {
-				state.fraction_b = Rational( 10 );
+				state.fraction_b = Rational();
 			} while( Cmp( state.fraction_a, state.fraction_b ) == 0 );
 	
 			state.largest_fraction = ( state.fraction_b.den * state.fraction_a.num ) > ( state.fraction_a.den * state.fraction_b.num ) ? "A" : "B";

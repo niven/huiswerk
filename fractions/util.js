@@ -1,9 +1,14 @@
 
 
 // ensure a/b where a<b
-function Rational() {
+function Rational( max_denominator ) {
+
+	if( max_denominator === undefined ) {
+		max_denominator = 20;
+	}
 	
-	var denominator = 1 + Math.ceil(Math.random()*19);
+	// make sure denominator is never 1
+	var denominator = 1 + Math.ceil(Math.random() * (max_denominator-1) );
 	var numerator = Math.ceil(Math.random()*(denominator-1));
 	
 	return {
