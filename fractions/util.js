@@ -110,13 +110,14 @@ function draw_fraction_as_circle( canvas, rational, show_as_text ) {
 	ctx.fillRect(0, 0, width, height);
 	
 	var distance = (Math.PI * 2) / rational.den;
+	var start_angle = Math.PI * 2 * Math.random();
 	
 	ctx.fillStyle = "orange";
 	ctx.lineWidth = 3;
 	for( var i=0; i<rational.den; i++ ) {
 		// draw a pie slice
 		ctx.lineTo( mid.x, mid.y );
-		ctx.arc( mid.x, mid.y, radius, i*distance, (i+1)*distance, false);
+		ctx.arc( mid.x, mid.y, radius, start_angle + i*distance, start_angle + (i+1)*distance, false);
 		ctx.lineTo( mid.x, mid.y );
 		if( i < rational.num ) {
 			ctx.fill();
