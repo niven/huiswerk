@@ -1,33 +1,10 @@
-<html>
-
-<head>
-	
-<title>Breuken</title>	
-
-<style type="text/css">
-
-.fraction {
-	background-color: wheat;
-	border: thick solid deepskyblue;
-	border-radius: 0.5em;
-	margin-right: 5%;
-}
-
-.fraction:hover {
-	border: thick solid green;
-	cursor: pointer;
-}
-
-</style>
-
-<script type="text/javascript">
 
 var WIDTH = 300;
 var HEIGHT = WIDTH;
 var Y_OFFSET = HEIGHT/4;
 
 // ensure a/b where a<b
-function Breuk() {
+function Rational() {
 	
 	var denominator = 1 + Math.ceil(Math.random()*19);
 	var numerator = Math.ceil(Math.random()*(denominator-1));
@@ -51,6 +28,21 @@ function Cmp( fraction_a, fraction_b ) {
 	}
 	
 	return 0;
+	
+}
+
+function add_fraction_canvas( parent_element, id, onclick_handler ) {
+	
+	var canvas = document.getElementById( id );
+	
+	if( canvas == null ) {
+		
+		var canvas = document.createElement("canvas");
+		canvas.setAttribute("id", id);
+		canvas.setAttribute("class", "fraction");
+		canvas.onclick = onclick_handler;
+		document.getElementById( parent_element ).appendChild( canvas );
+	}
 	
 }
 
@@ -90,7 +82,6 @@ function draw_fraction_as_circle( canvas, rational, show_as_text ) {
 	
 }
 
-// TODOs: font size as param, and derive Y locations from measureText
 function print_fraction( ctx, rational ) {
 	
 	var font_size_px = Math.ceil(HEIGHT / 10);
@@ -113,65 +104,32 @@ function print_fraction( ctx, rational ) {
 	
 }
 
-var state = {
-	"fraction_a": 0,
-	"fraction_b": 0,
-	"correct": 0,
-	"fail": 0,
-	"goal": 30,
-	"min_correct_ratio": 90/100,
-};
-
-
-function make_frac() {
+function clear_element( id ) {
 	
-	state.fraction_a = state.fraction_b = Breuk();
-	do {
-		state.fraction_b = Breuk();
-	} while( Cmp( state.fraction_a, state.fraction_b ) == 0 );
-	
-	state.largest_fraction = ( state.fraction_b.den * state.fraction_a.num ) > ( state.fraction_a.den * state.fraction_b.num ) ? "A" : "B";
-	
-	draw_fraction_as_circle( document.getElementById('fraction_a'), state.fraction_a, true );
-	draw_fraction_as_circle( document.getElementById('fraction_b'), state.fraction_b, true );
-}
-
-function check( canvas_el ) {
-
-	var cmp = Cmp(state.fraction_a, state.fraction_b);
-	var correct = (canvas_el.id == "fraction_a" && cmp == 1) || (canvas_el.id == "fraction_b" && cmp == -1);
-
-	state.correct += correct;
-	state.fail += 1-correct;
-	
-	var score = document.getElementById("score");
-	score.innerHTML = state.correct + " Goed - " + state.fail + " Fout";
-	
-	if( state.correct >= state.goal ) {
-		var correct_ratio = state.correct / (state.correct + state.fail);
-		if( correct_ratio >= state.min_correct_ratio ) {
-			score.innerHTML = "KLAAR!";
-		}
+	var el = document.getElementById( id );
+	while( el.hasChildNodes() ) {
+		el.removeChild( el.firstChild );
 	}
-
 	
-	make_frac();
+}
+
+function show_next_level_panel() {
+	
+	// clear the main div
+	clear_element( "main" );
+	
+	var caption = levels.length > 0 ? "Volgende level:<br>" + levels[0].data().name : "Alle levels gedaan!";	
+	
+	var panel = document.createElement("div");
+	panel.setAttribute("class", "panel");
+	panel.innerHTML = caption;
+	panel.onclick = function() {
+		clear_element("main");
+		start_level();
+	}
+	document.getElementById("main").appendChild( panel );
 	
 }
 
 
-</script>
 
-</head>
-
-<body onload="make_frac();">
-
-<h2>Klik op de breuk die groter is</h2>
-
-<canvas class="fraction" id="fraction_a" onclick="check(this);"></canvas>
-<canvas class="fraction" id="fraction_b" onclick="check(this);"></canvas>
-
-<h2 id="score"></h2>
-
-</body>
-</html>
