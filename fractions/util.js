@@ -1,7 +1,4 @@
 
-var WIDTH = 300;
-var HEIGHT = WIDTH;
-var Y_OFFSET = HEIGHT/4;
 
 // ensure a/b where a<b
 function Rational() {
@@ -31,7 +28,7 @@ function Cmp( fraction_a, fraction_b ) {
 	
 }
 
-function add_fraction_canvas( parent_element, id, onclick_handler ) {
+function add_fraction_canvas( parent_element, id, size, onclick_handler ) {
 	
 	var canvas = document.getElementById( id );
 	
@@ -39,6 +36,8 @@ function add_fraction_canvas( parent_element, id, onclick_handler ) {
 		
 		var canvas = document.createElement("canvas");
 		canvas.setAttribute("id", id);
+		canvas.setAttribute("width", size);
+		canvas.setAttribute("height", size);
 		canvas.setAttribute("class", "fraction");
 		canvas.onclick = onclick_handler;
 		document.getElementById( parent_element ).appendChild( canvas );
@@ -46,21 +45,27 @@ function add_fraction_canvas( parent_element, id, onclick_handler ) {
 	
 }
 
+
 function draw_fraction_as_circle( canvas, rational, show_as_text ) {
 	
-	canvas.width = WIDTH;
-	canvas.height = HEIGHT;
+	var width = canvas.width;
+	var height = canvas.height;
+	var y_offset = height/4;
 	
 	var ctx = canvas.getContext("2d");
 	
 	var mid = {
-		x: WIDTH/2,
-		y: (HEIGHT - Y_OFFSET)/2
+		x: width/2,
+		y: (height - y_offset)/2
 	};
-	var radius = WIDTH/3;
+	var radius = width/3;
+
+	// this clears the subpaths (since we redraw the same canvas, this would lead to redrawing all old lines)
+	ctx.beginPath();
 	
 	ctx.fillStyle = "rgb(255,255,255)";
-	ctx.fillRect(0, 0, WIDTH, HEIGHT);
+	ctx.fillRect(0, 0, width, height);
+	
 	var distance = (Math.PI * 2) / rational.den;
 	
 	ctx.fillStyle = "orange";
@@ -77,14 +82,14 @@ function draw_fraction_as_circle( canvas, rational, show_as_text ) {
 	}
 
 	if( show_as_text ) {
-		print_fraction( ctx, rational );
+		print_fraction( ctx, rational, width, height );
 	}
-	
+
 }
 
-function print_fraction( ctx, rational ) {
+function print_fraction( ctx, rational, width, height ) {
 	
-	var font_size_px = Math.ceil(HEIGHT / 10);
+	var font_size_px = Math.ceil(height / 10);
 	ctx.font = font_size_px + "px monospace";
 	ctx.fillStyle = "black";
 	ctx.lineWidth = 3;
@@ -94,13 +99,13 @@ function print_fraction( ctx, rational ) {
 	var bar_width = n_width > d_width ? n_width : d_width;
 
 	
-	var x_start = WIDTH/2 - (bar_width/2);
-	ctx.moveTo( x_start, HEIGHT - font_size_px + ctx.lineWidth);
-	ctx.lineTo( x_start+bar_width, HEIGHT - font_size_px + ctx.lineWidth);
+	var x_start = width/2 - (bar_width/2);
+	ctx.moveTo( x_start, height - font_size_px + ctx.lineWidth);
+	ctx.lineTo( x_start+bar_width, height - font_size_px + ctx.lineWidth);
 	ctx.stroke();
 
-	ctx.fillText("" + rational.num, WIDTH/2 - n_width/2, HEIGHT - font_size_px - ctx.lineWidth);
-	ctx.fillText("" + rational.den, WIDTH/2 - d_width/2, HEIGHT - ctx.lineWidth);
+	ctx.fillText("" + rational.num, width/2 - n_width/2, height - font_size_px - ctx.lineWidth);
+	ctx.fillText("" + rational.den, width/2 - d_width/2, height - ctx.lineWidth);
 	
 }
 
@@ -131,5 +136,30 @@ function show_next_level_panel() {
 	
 }
 
+function feedback( params ) {
+	
+
+	var feedback_panel = document.createElement("div");
+	feedback_panel.setAttribute("class", "feedback");
+	var title = document.createElement("h2");
+	title.appendChild( document.createTextNode( params.title) );
+	feedback_panel.appendChild( title );
+
+	feedback_panel.appendChild( document.createTextNode( "Het goede antwoord was:") );
+	var canvas = document.createElement("canvas");
+	canvas.setAttribute("width", "160px");
+	canvas.setAttribute("height", "160px");
+	feedback_panel.appendChild( canvas );
+	
+	draw_fraction_as_circle( canvas, params.right_answer, true);
+	
+	document.getElementById("main").appendChild( feedback_panel );
+	
+	// give the browser a little time to start, otherwise the transition will happen instantaneously
+	window.setTimeout( function() { feedback_panel.classList.add("feedback_fadeout"); }, 100 );
+	// remove it after the animation has ended
+	window.setTimeout( function() { document.getElementById("main").removeChild(feedback_panel) }, 5*1000 );
+	
+}
 
 

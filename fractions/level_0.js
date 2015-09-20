@@ -6,7 +6,7 @@ function Level0() {
 		"data": function() {
 			return {
 				"name": "Grootste Breuk",
-				"correct_to_pass": 1,
+				"correct_to_pass": 10,
 				"fail_extra": 5,
 			}
 		},
@@ -28,8 +28,8 @@ function Level0() {
 				check_function( event.target, state );
 			}
 	
-			add_fraction_canvas( "main", "fraction_a", onclick_handler );
-			add_fraction_canvas( "main", "fraction_b", onclick_handler );
+			add_fraction_canvas( "main", "fraction_a", 300, onclick_handler );
+			add_fraction_canvas( "main", "fraction_b", 300, onclick_handler );
 
 		},
 
@@ -57,6 +57,12 @@ function Level0() {
 			// mistakes mean more sums
 			if( !correct ) {
 				state.extras += state.fail_extra;
+				
+				feedback({
+					"right_answer": cmp == 1 ? state.fraction_a : state.fraction_b,
+					"title": "Fout",
+				});
+				
 			}
 
 			// just continue running
