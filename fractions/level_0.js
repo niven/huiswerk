@@ -1,4 +1,4 @@
-levels.unshift( new Level0() );
+levels.push( new Level0() );
 
 function Level0() {
 	
@@ -36,7 +36,7 @@ function Level0() {
 		"make": function( state ) {
 
 			state.fraction_a = state.fraction_b = Rational( 10 );
-			console.log("made a");
+
 			do {
 				state.fraction_b = Rational( 10 );
 			} while( Cmp( state.fraction_a, state.fraction_b ) == 0 );

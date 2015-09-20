@@ -1,4 +1,4 @@
-levels.unshift( new Level1() );
+levels.push( new Level1() );
 
 function Level1() {
 	
@@ -6,8 +6,8 @@ function Level1() {
 		"data": function() {
 			return {
 				"name": "Welke breuk is anders?",
-				"correct_to_pass": 10,
-				"fail_extra": 5,
+				"correct_to_pass": 15,
+				"fail_extra": 3,
 			}
 		},
 
@@ -28,28 +28,46 @@ function Level1() {
 				check_function( event.target, state );
 			}
 	
-			add_fraction_canvas( "main", "fraction_a", 300, onclick_handler );
-			add_fraction_canvas( "main", "fraction_b", 300, onclick_handler );
+			add_fraction_canvas( "main", "fraction_a", 200, onclick_handler );
+			add_fraction_canvas( "main", "fraction_b", 200, onclick_handler );
+			add_fraction_canvas( "main", "fraction_c", 200, onclick_handler );
 
 		},
 
 		"make": function( state ) {
 
-			state.fraction_a = state.fraction_b = Rational();
+			state.fraction_a = state.fraction_c = Rational( 10 );
 			do {
-				state.fraction_b = Rational();
-			} while( Cmp( state.fraction_a, state.fraction_b ) == 0 );
-	
-			state.largest_fraction = ( state.fraction_b.den * state.fraction_a.num ) > ( state.fraction_a.den * state.fraction_b.num ) ? "A" : "B";
+				state.fraction_c = Rational( 10 );
+			} while( Cmp( state.fraction_a, state.fraction_c ) == 0 );
 
-			draw_fraction_as_circle( document.getElementById('fraction_a'), state.fraction_a, true );
-			draw_fraction_as_circle( document.getElementById('fraction_b'), state.fraction_b, true );
+			state.fraction_b = {};
+			state.fraction_b.num = state.fraction_a.num;
+			state.fraction_b.den = state.fraction_a.den;
+			
+			// now a==b and c is different
+			// now change the base of b (prefer simplification)
+			state.fraction_b = Simplify( state.fraction_b );
+			if( state.fraction_b.den == state.fraction_a.den ) {
+				var factor = 1 + Math.ceil( Math.random() * 3 );
+				state.fraction_b.num *= factor;
+				state.fraction_b.den *= factor;
+			}
+
+			// shuffle locations
+			var fractions = ["a", "b", "c"]; 
+			fractions = shuffle( fractions  );
+
+			draw_fraction_as_circle( document.getElementById('fraction_' + fractions[0]), state.fraction_a, true );
+			draw_fraction_as_circle( document.getElementById('fraction_' + fractions[1]), state.fraction_b, true );
+			draw_fraction_as_circle( document.getElementById('fraction_' + fractions[2]), state.fraction_c, true );
+			state.correct_answer = 'fraction_' + fractions[2]; // where we put the different one
+
 		},
 
 		"check": function( canvas_el, state ) {
 
-			var cmp = Cmp(state.fraction_a, state.fraction_b);
-			var correct = (canvas_el.id == "fraction_a" && cmp == 1) || (canvas_el.id == "fraction_b" && cmp == -1);
+			var correct = canvas_el.id == state.correct_answer;
 
 			state.correct += correct;
 			state.fail += 1-correct;
@@ -59,7 +77,7 @@ function Level1() {
 				state.extras += state.fail_extra;
 				
 				feedback({
-					"right_answer": cmp == 1 ? state.fraction_a : state.fraction_b,
+					"right_answer": state.fraction_c,
 					"title": "Fout",
 				});
 				

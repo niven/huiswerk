@@ -1,4 +1,24 @@
+// Fisher-Yates
+function shuffle( array ) {
+	
+    var counter = array.length, temp, index;
 
+    // While there are elements in the array
+    while (counter > 0) {
+        // Pick a random index
+        index = Math.floor(Math.random() * counter);
+
+        // Decrease counter by 1
+        counter--;
+
+        // And swap the last element with it
+        temp = array[counter];
+        array[counter] = array[index];
+        array[index] = temp;
+    }
+
+    return array;
+}
 
 // ensure a/b where a<b
 function Rational( max_denominator ) {
@@ -31,6 +51,24 @@ function Cmp( fraction_a, fraction_b ) {
 	
 	return 0;
 	
+}
+
+function Simplify( rational ) {
+	
+	var small = rational.num;
+	var large = rational.den;
+
+	while( large % small != 0 ) {
+		large = large % small;
+		var temp = large;
+		large = small;
+		small = temp;
+	}
+	
+	return {
+		num: rational.num / small,
+		den: rational.den / small
+	};
 }
 
 function add_fraction_canvas( parent_element, id, size, onclick_handler ) {
@@ -133,10 +171,14 @@ function show_next_level_panel() {
 	var panel = document.createElement("div");
 	panel.setAttribute("class", "panel");
 	panel.innerHTML = caption;
-	panel.onclick = function() {
-		clear_element("main");
-		start_level();
+
+	if( levels.length > 0 ) {
+		panel.onclick = function() {
+			clear_element("main");
+			start_level();
+		}		
 	}
+		
 	document.getElementById("main").appendChild( panel );
 	
 }
