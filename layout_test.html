@@ -1,0 +1,135 @@
+<html>
+
+<head>
+<style type="text/css">
+
+* {
+	margin: 0;
+	padding: 0;
+}
+
+div {
+	border: thin solid black;
+}
+
+.col {
+	height: 95%;
+}
+#col1 {
+	float: left;
+	width: 800px;
+}
+#col2 {
+	float: right;
+	width: 300px;
+}
+
+#container {
+	width: 90%;
+	margin: 0 auto;
+	background: red;
+}
+
+.panel {
+	background-color: deepskyblue;
+	padding: 0.5em;
+	height: 80%;
+}
+
+#title {
+	width: 100%;
+	background-color: pink;
+	text-align: center;
+}
+#feedback {
+	overflow: hidden;
+}
+
+.feedback_item {
+	background-color: lavender;
+	border-width: thick;
+	border-radius: 0.5em;
+	padding: 0.2ex 0.2em;
+	margin-bottom: 1ex;
+	opacity: 1;
+	transition: opacity 8s;
+	transition-timing-function: ease-in;
+}
+.feedback_positive {
+	border-color: green;
+}
+.feedback_negative {
+	border-color: maroon;
+}
+.feedback_fadeout {
+	opacity: 0;
+}
+
+
+</style>
+
+<script type="text/javascript">
+
+var counter = 0;
+
+// show a little box in the feedback panel with some text and nice UX
+function show_feedback( type, text ) {
+	
+	var feedback_panel = document.getElementById("feedback");
+	
+	var text = (counter++) + ". " + text;
+	var fb = document.createElement("div");
+	fb.classList.add("feedback_item");
+	fb.classList.add("feedback_" + type);
+	fb.innerHTML = text;
+	
+	// append at the top
+	feedback_panel.insertBefore( fb,	feedback_panel.firstChild );
+	// apply the fade after a little so it doesn't skip the transition
+	window.setTimeout( function() { fb.classList.add("feedback_fadeout"); }, 100 );
+	
+	// clean up the item after it has disappeared
+	fb.addEventListener("transitionend", function() { feedback_panel.removeChild(fb); }, true);
+}
+
+function act() {
+	
+	var outcome = Math.random();
+	
+	if( outcome < 0.5 ) {
+		show_feedback( "negative", "Booooo, you suck!" );
+	} else {
+		show_feedback( "positive", "Great Victory my Liege!" );
+	}
+	
+	
+}
+
+</script>
+
+</head>
+<body>
+
+<div id="container">
+	
+<div id="col1" class="col">
+	<div id="title">Title of thing</div>
+	<div id="main" class="panel">
+		<button onclick="act();">Do the thing</button>
+		
+	</div>
+	<div id="progress"></div>
+</div>
+
+<div id="col2" class="col">
+	<div id="score">Level 2 / Score 32523</div>
+	<div id="feedback" class="panel"></div>
+	<div id="clock"></div>
+</div>
+
+</div>
+
+
+
+</body>
+</html>
