@@ -65,6 +65,18 @@ div {
 	opacity: 0;
 }
 
+.blip {
+	font-weight: bold;
+	color: gold;
+	background-color: black;
+	margin-left: 1em;
+	opacity: 1;
+	transition: opacity 2s;
+}
+.blip_fade {
+	opacity: 0;
+}
+
 
 </style>
 
@@ -92,14 +104,35 @@ function show_feedback( type, text ) {
 	fb.addEventListener("transitionend", function() { feedback_panel.removeChild(fb); }, true);
 }
 
+function update_score( points ) {
+	
+	var pts = document.getElementById("points");
+	pts.innerHTML = parseInt(pts.innerHTML) + points;
+	
+	var points_blip = document.createElement("span");
+	points_blip.innerHTML = points > 0 ? "+" + points : points;
+	points_blip.classList.add("blip");
+	
+	document.getElementById("score").insertBefore( points_blip, pts.nextSibling );
+	// apply the fade after a little so it doesn't skip the transition
+	window.setTimeout( function() { points_blip.classList.add("blip_fade"); }, 100 );
+	
+	// clean up the item after it has disappeared
+	points_blip.addEventListener("transitionend", function() { document.getElementById("score").removeChild(points_blip); }, true);
+	
+}
+
+
 function act() {
 	
 	var outcome = Math.random();
 	
 	if( outcome < 0.5 ) {
 		show_feedback( "negative", "Booooo, you suck!" );
+		update_score( -10 );
 	} else {
 		show_feedback( "positive", "Great Victory my Liege!" );
+		update_score( +25 );
 	}
 	
 	
@@ -122,7 +155,7 @@ function act() {
 </div>
 
 <div id="col2" class="col">
-	<div id="score">Level 2 / Score 32523</div>
+	<div id="score">Level 2 / Score <span id="points">0</span> </div>
 	<div id="feedback" class="panel"></div>
 	<div id="clock"></div>
 </div>
