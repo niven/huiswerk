@@ -6,6 +6,7 @@ function Level1() {
 		"data": function() {
 			return {
 				"name": "Welke breuk is anders?",
+				"manual": "Nu krijg je 3 breuken te zien.<br>Er zijn steeds 2 breuken hetzelfde, kies de breuk die anders is.<br>Bijvoorbeeld: 1/2 is hetzelfde als 2/4",
 				"correct_to_pass": 15,
 				"fail_extra": 3,
 			}
@@ -16,11 +17,12 @@ function Level1() {
 			return state.correct >= state.correct_to_pass + state.extras;
 		},
 
-		"setup": function( state ) {
+		"setup": function( state, stage_element ) {
 	
 			state.correct = 0;
 			state.fail = 0;
 			state.extras = 0;
+			state.stage = stage_element;
 	
 			// can't use 'this' in the onclickhandler definition since it captures a different one when executed
 			var check_function = this.check;

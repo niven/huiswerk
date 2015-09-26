@@ -88,12 +88,10 @@ function start_level() {
 
 function run_level( state ) {
 	
-	document.getElementById("scoreline").innerHTML = current_level.score( state );
+	update_score( current_level.score( state ) );
 	
 	if( current_level.done( state ) ) {
 		
-		document.getElementById("level_title").innerHTML = "";
-		document.getElementById("scoreline").innerHTML = "";
 		show_next_level_panel();
 		
 	} else {

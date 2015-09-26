@@ -1,0 +1,62 @@
+<html>
+
+<head>
+	<title>Math practice</title>
+	
+	
+<link rel="stylesheet" type="text/css" href="ui/looknfeel.css"/>
+<link rel="stylesheet" type="text/css" href="ui/modal_dialog.css"/>
+
+<script type="text/javascript" src="runner.js"></script>
+<script type="text/javascript" src="things.js"></script>
+<script type="text/javascript" src="ui/behaviours.js"></script>
+<script type="text/javascript" src="fractions/util.js"></script>
+
+<script type="text/javascript" src="fractions/level_0.js"></script>
+<script type="text/javascript" src="fractions/level_1.js"></script>
+
+</head>
+<body onload="init();">
+
+<div id="container">
+	
+<div id="col1" class="col">
+	<div id="title" class="titlebar">Title of thing</div>
+	<div id="main" class="panel panel_look"></div>
+	<div id="title" class="titlebar">Progress</div>
+	<div id="progress" class="panel_look">
+
+		<div id="progressbar_track"><span id="bar"></span></div>
+
+	</div>
+</div>
+
+<div id="col2" class="col">
+	<div id="score" class="titlebar">
+		<span style="display: inline-block; width: 35%">Level <span id="level">2</span></span>
+		<span style="display: inline-block; width: 30%; text-align: left;">Score <span id="points">0</span></span>
+		<span style="display: inline-block; width: 15%; text-align: left;" id="score_bliparea"></span></div>
+	<div id="feedback" class="panel panel_look"></div>
+
+	<div id="title" class="titlebar">Time</div>
+	<div id="clock" class="panel_look"></div>
+</div>
+
+</div>
+
+
+<!-- Modal -->
+<div class="md-modal md-effect-1" id="modal-1">
+	<div class="md-content">
+		<h3 id="modal_title" class="titlebar">Modal Dialog</h3>
+		<div class="panel_look">
+			<p id="modal_text">This is a modal window.</p>
+			<button class="md-close" id="md-close-button">Start!</button>
+		</div>
+	</div>
+</div>
+
+<div class="md-overlay"></div>
+
+</body>
+</html>

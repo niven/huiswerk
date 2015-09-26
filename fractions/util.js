@@ -20,24 +20,9 @@ function shuffle( array ) {
     return array;
 }
 
-// ensure a/b where a<b
-function Rational( max_denominator ) {
 
-	if( max_denominator === undefined ) {
-		max_denominator = 20;
-	}
-	
-	// make sure denominator is never 1
-	var denominator = 1 + Math.ceil(Math.random() * (max_denominator-1) );
-	var numerator = Math.ceil(Math.random()*(denominator-1));
-	
-	return {
-		num: numerator,
-		den: denominator
-	};
-}
 
-function Cmp( fraction_a, fraction_b ) {
+function rational_compare( fraction_a, fraction_b ) {
 	
 	var val_a = fraction_a.num * fraction_b.den;
 	var val_b = fraction_b.num * fraction_a.den;
@@ -53,7 +38,7 @@ function Cmp( fraction_a, fraction_b ) {
 	
 }
 
-function Simplify( rational ) {
+function simplify_rational( rational ) {
 	
 	var small = rational.num;
 	var large = rational.den;
@@ -76,20 +61,20 @@ function add_fraction_canvas( parent_element, id, size, onclick_handler ) {
 	var canvas = document.getElementById( id );
 	
 	if( canvas == null ) {
-		
 		var canvas = document.createElement("canvas");
 		canvas.setAttribute("id", id);
 		canvas.setAttribute("width", size);
 		canvas.setAttribute("height", size);
 		canvas.setAttribute("class", "fraction");
 		canvas.onclick = onclick_handler;
-		document.getElementById( parent_element ).appendChild( canvas );
+		parent_element.appendChild( canvas );
 	}
 	
 }
 
 
 function draw_fraction_as_circle( canvas, rational, show_as_text ) {
+	
 	
 	var width = canvas.width;
 	var height = canvas.height;
@@ -113,7 +98,7 @@ function draw_fraction_as_circle( canvas, rational, show_as_text ) {
 	var start_angle = Math.PI * 2 * Math.random();
 	
 	ctx.fillStyle = "orange";
-	ctx.lineWidth = 3;
+	ctx.lineWidth = 1;
 	for( var i=0; i<rational.den; i++ ) {
 		// draw a pie slice
 		ctx.lineTo( mid.x, mid.y );
@@ -162,38 +147,15 @@ function clear_element( id ) {
 	
 }
 
-function show_next_level_panel() {
-	
-	// clear the main div
-	clear_element( "main" );
-	
-	var caption = levels.length > 0 ? "Volgende level:<br>" + levels[0].data().name : "Alle levels gedaan!";	
-	
-	var panel = document.createElement("div");
-	panel.setAttribute("class", "panel");
-	panel.innerHTML = caption;
 
-	if( levels.length > 0 ) {
-		panel.onclick = function() {
-			clear_element("main");
-			start_level();
-		}		
-	}
-		
-	document.getElementById("main").appendChild( panel );
-	
-}
-
-function feedback( params ) {
+function create_correction( params ) {
 	
 
 	var feedback_panel = document.createElement("div");
 	feedback_panel.setAttribute("class", "feedback");
-	var title = document.createElement("h2");
-	title.appendChild( document.createTextNode( params.title) );
-	feedback_panel.appendChild( title );
+	feedback_panel.appendChild( document.createTextNode( params.title ) );
 
-	feedback_panel.appendChild( document.createTextNode( "Het goede antwoord was:") );
+	feedback_panel.appendChild( document.createTextNode( "Het was:") );
 	var canvas = document.createElement("canvas");
 	canvas.setAttribute("width", "160px");
 	canvas.setAttribute("height", "160px");
@@ -201,13 +163,7 @@ function feedback( params ) {
 	
 	draw_fraction_as_circle( canvas, params.right_answer, true);
 	
-	document.getElementById("main").appendChild( feedback_panel );
-	
-	// give the browser a little time to start, otherwise the transition will happen instantaneously
-	window.setTimeout( function() { feedback_panel.classList.add("feedback_fadeout"); }, 100 );
-	// remove it after the animation has ended
-	window.setTimeout( function() { document.getElementById("main").removeChild(feedback_panel) }, 5*1000 );
-	
+	return feedback_panel;
 }
 
 

@@ -1,0 +1,199 @@
+
+* {
+	font-family: "Lato", Calibri, Arial, sans-serif;
+	
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	background-color: red;
+   background-image: linear-gradient(to bottom, ivory 50%, white);
+	padding-top: 1em;
+	height: 100%;
+ }
+ 
+.col {
+	height: 95%;
+}
+
+#col1 {
+	float: left;
+	min-width: 400px;
+	width: 70%;
+}
+
+#col2 {
+	float: right;
+	width: 300px;
+}
+
+#container {
+	width: 90%;
+	margin: 0 auto;
+	background: red;
+}
+
+#main {
+	text-align: center;
+}
+
+.panel {
+	height: 70%;
+	margin-bottom: 1em;
+}
+
+.panel_look {
+	background-color: ivory;
+	border-bottom-right-radius: 8px;
+   border-bottom-left-radius: 8px;
+	
+	padding: 10px;
+	box-shadow: inset 0 -1px 1px rgba(255,255,255,0.3);	
+	box-shadow: 0px 5px 5px black;
+	
+	color: white;
+}
+
+#title {
+	width: 100%;
+}
+
+.titlebar {
+   border-top-right-radius: 8px;
+   border-bottom-right-radius: 0px;
+   border-top-left-radius: 8px;
+   border-bottom-left-radius: 0px;
+   box-shadow: 
+     inset 0 2px 9px  rgba(255,255,255,0.3),
+     inset 0 -2px 6px rgba(0,0,0,0.4);
+  background-image: linear-gradient(to bottom, #80DFFF, deepskyblue);
+  font-weight: bold;
+  font-size: large;
+  font-variant: small-caps;
+  text-align: center;
+  color: #333;
+}
+
+
+#feedback {
+	overflow: hidden;
+}
+.feedback_item {
+	background-color: white;
+	color: black;
+	text-align: center;
+	font-size: xx-large;
+	font-weight: bolder;
+	
+	border-color: black;
+	border-style: solid;
+	border-width: thin;
+	border-left-width: 2em;
+	border-top-left-radius: 1ex;
+	border-bottom-left-radius: 1ex;
+	border-top-right-radius: 0.5ex;
+	border-bottom-right-radius: 0.5ex;
+	padding: 0.2ex 0.2em;
+	margin-bottom: 1ex;
+	opacity: 1;
+	transition: opacity 1s;
+	transition-timing-function: cubic-bezier(0.95, 0.05, 0.795, 0.035);
+	transition-delay: 3s;
+}
+.feedback_positive {
+	border-color: green;
+}
+.feedback_negative {
+	border-color: maroon;
+}
+.feedback_fadeout {
+	opacity: 0;
+}
+
+
+.blip {
+	font-weight: bold;
+	opacity: 1;
+	transition: opacity 2s;
+}
+.blip_fade {
+	opacity: 0;
+}
+
+
+
+#progressbar_track {
+	height: 15px; 
+	position: relative;
+/*	background-color: #555;*/
+	border-radius: 25px;
+	padding: 10px;
+	box-shadow: inset 0 -1px 1px rgba(255,255,255,0.3);
+}
+
+#progressbar_track > span {
+  display: block;
+  height: 100%;
+  /* right size is squarish, left side fits the track */
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+  box-shadow: 
+    inset 0 2px 9px  rgba(255,255,255,0.3),
+    inset 0 -2px 6px rgba(0,0,0,0.4);
+  position: relative;
+  overflow: hidden;
+}
+
+.green > span {
+   background-color: rgb(43,194,83);
+   background-image: linear-gradient(to bottom, rgb(84,240,84) 37%, rgb(43,194,83) 69%);
+}
+.orange > span {
+  background-color: #f1a165;
+  background-image: linear-gradient(to bottom, #f1a165, #f36d0a);
+}
+
+.red > span {
+  background-color: #f0a3a3;
+  background-image: linear-gradient(to bottom, #f0a3a3, #f42323);
+}
+
+#clock {
+	color: black;
+	font-family: Menlo;
+	font-size: xx-large;
+	font-variant: small-caps;
+	text-align: center;
+	font-weight: bolder;
+	height: 35px; /* this is the track height + twice its padding :( ugly */
+}
+
+button {
+	border: medium none;
+	padding: 0.6em 1.2em;
+	background-color: deepskyblue;
+	color: #FFF;
+	font-size: 1em;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+	cursor: pointer;
+	display: inline-block;
+	margin: 3px 2px;
+	border-radius: 2px;
+}
+
+.fraction {
+	background-color: wheat;
+	border: thick solid deepskyblue;
+	border-radius: 0.5em;
+	margin-right: 1em;
+	margin-left: 1em;
+}
+
+.fraction:hover {
+	border: thick solid green;
+	cursor: pointer;
+}
