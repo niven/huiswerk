@@ -24,15 +24,15 @@ function Level1() {
 			state.extras = 0;
 			state.stage = stage_element;
 	
-			// can't use 'this' in the onclickhandler definition since it captures a different one when executed
-			var check_function = this.check;
+			// binding the checker to this object, and then later calling it after user clicks on something
+			var hnd = check_answer.bind( this );
 			var onclick_handler = function( event ) {
-				check_function( event.target, state );
+				hnd( event.target, state );
 			}
 	
-			add_fraction_canvas( "main", "fraction_a", 200, onclick_handler );
-			add_fraction_canvas( "main", "fraction_b", 200, onclick_handler );
-			add_fraction_canvas( "main", "fraction_c", 200, onclick_handler );
+			add_fraction_canvas( state.stage, "fraction_a", 200, onclick_handler );
+			add_fraction_canvas( state.stage, "fraction_b", 200, onclick_handler );
+			add_fraction_canvas( state.stage, "fraction_c", 200, onclick_handler );
 
 		},
 
@@ -41,7 +41,7 @@ function Level1() {
 			state.fraction_a = state.fraction_c = Rational( 10 );
 			do {
 				state.fraction_c = Rational( 10 );
-			} while( Cmp( state.fraction_a, state.fraction_c ) == 0 );
+			} while( rational_compare( state.fraction_a, state.fraction_c ) == 0 );
 
 			state.fraction_b = {};
 			state.fraction_b.num = state.fraction_a.num;
@@ -49,7 +49,7 @@ function Level1() {
 			
 			// now a==b and c is different
 			// now change the base of b (prefer simplification)
-			state.fraction_b = Simplify( state.fraction_b );
+			state.fraction_b = rational_simplify( state.fraction_b );
 			if( state.fraction_b.den == state.fraction_a.den ) {
 				var factor = 1 + Math.ceil( Math.random() * 3 );
 				state.fraction_b.num *= factor;
@@ -67,35 +67,15 @@ function Level1() {
 
 		},
 
-		"check": function( canvas_el, state ) {
-
-			var correct = canvas_el.id == state.correct_answer;
-
-			state.correct += correct;
-			state.fail += 1-correct;
-	
-			// mistakes mean more sums
-			if( !correct ) {
-				state.extras += state.fail_extra;
-				
-				feedback({
-					"right_answer": state.fraction_c,
-					"title": "Fout",
-				});
-				
-			}
-
-			// just continue running
-			run_level( state );
-	
+		"result": function( element, state ) {
+			
+			var result = {};
+			
+			result.is_correct = element.id == state.correct_answer;
+			result.correct_answer = state.fraction_c;
+			
+			return result;
 		},
-
-		"score": function( state ) {
-			
-			var remaining = state.correct_to_pass + state.extras - state.correct;
-			
-			return state.correct + " Goed - " + state.fail + " Fout - " + remaining + " nog te doen";
-		}
 
 	};
 }

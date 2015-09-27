@@ -38,7 +38,7 @@ function rational_compare( fraction_a, fraction_b ) {
 	
 }
 
-function simplify_rational( rational ) {
+function rational_simplify( rational ) {
 	
 	var small = rational.num;
 	var large = rational.den;
@@ -63,13 +63,13 @@ function add_fraction_canvas( parent_element, id, size, onclick_handler ) {
 	if( canvas == null ) {
 		var canvas = document.createElement("canvas");
 		canvas.setAttribute("id", id);
-		canvas.setAttribute("width", size);
-		canvas.setAttribute("height", size);
 		canvas.setAttribute("class", "fraction");
-		canvas.onclick = onclick_handler;
 		parent_element.appendChild( canvas );
 	}
-	
+	// if it already exists, still set the right handler and size
+	canvas.setAttribute("width", size);
+	canvas.setAttribute("height", size);
+	canvas.onclick = onclick_handler;
 }
 
 
@@ -153,7 +153,7 @@ function create_correction( params ) {
 
 	var feedback_panel = document.createElement("div");
 	feedback_panel.setAttribute("class", "feedback");
-	feedback_panel.appendChild( document.createTextNode( params.title ) );
+	// feedback_panel.appendChild( document.createTextNode( params.title ) );
 
 	feedback_panel.appendChild( document.createTextNode( "Het was:") );
 	var canvas = document.createElement("canvas");

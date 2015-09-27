@@ -33,19 +33,24 @@ function init() {
 	clock.pause();
 	intervalID = window.setInterval( function() { clock.display(); }, 100 );
 
-	update_progress( 0, 1 );
-
 	next_level();
 }
 
 function next_level() {
 
-	current_level = levels.shift();
-	current_data = current_level.data();
+	if( levels.length > 0 ) {
+		update_progress( 0, 1 );
+		
+		current_level = levels.shift();
+		current_data = current_level.data();
 
-	show_modal("Level " + level_number  + ": " + current_data.name, current_data.manual, start_level );
+		show_modal("Level " + level_number  + ": " + current_data.name, current_data.manual, start_level );
 
-	set_level( level_number++ );
+		set_level( level_number++ );		
+	} else {
+		show_modal("Klaar!", "Je hebt alles af (TODO: scores &amp; stats)", function(){} );
+	}
+
 }
 
 function start_level() {
@@ -77,5 +82,34 @@ function run_level( state ) {
 	} else {
 		current_level.make( state );
 	}
+	
+}
+
+function check_answer( target, state ) {
+
+	var result = this.result(target, state);
+
+	// mistakes mean more sums
+	if( result.is_correct ) {
+		state.correct++;
+		state.points_earned = 25;
+		var el = document.createElement("span");
+		el.innerHTML = "Goed!";
+		show_feedback( "positive", el );
+	} else {
+		state.fail++;
+		state.points_earned = -10;
+		state.extras += state.fail_extra;	
+
+		var el = create_correction( {
+            "right_answer": result.correct_answer,
+            "title": "Fout",
+		} );
+		show_feedback( "negative", el );
+		
+	}
+
+	// hand it back over to the showrunner
+	step_done( state );
 	
 }

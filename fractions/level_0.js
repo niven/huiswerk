@@ -23,11 +23,11 @@ function Level0() {
 			state.fail = 0;
 			state.extras = 0;
 			state.stage = stage_element; // this is where we run the level (some HTML element (most likely a div))
-	
-			// can't use 'this' in the onclickhandler definition since it captures a different one when executed
-			var check_function = this.check;
+
+			// binding the checker to this object, and then later calling it after user clicks on something
+			var hnd = check_answer.bind( this );
 			var onclick_handler = function( event ) {
-				check_function( event.target, state );
+				hnd( event.target, state );
 			}
 	
 			add_fraction_canvas( state.stage, "fraction_a", 300, onclick_handler );
@@ -49,36 +49,16 @@ function Level0() {
 			draw_fraction_as_circle( document.getElementById('fraction_b'), state.fraction_b, true );
 		},
 
-		"check": function( canvas_el, state ) {
-
+		"result": function( element, state ) {
+			
+			var result = {};
+			
 			var cmp = rational_compare(state.fraction_a, state.fraction_b);
-			var correct = (canvas_el.id == "fraction_a" && cmp == 1) || (canvas_el.id == "fraction_b" && cmp == -1);
-
-			state.correct += correct;
-			state.fail += 1-correct;
-	
-			// mistakes mean more sums
-			if( correct ) {
-				state.points_earned = 25;
-				var el = document.createElement("span");
-				el.innerHTML = "Goed!";
-				show_feedback( "positive", el );
-			} else {
-				state.points_earned = -10;
-				state.extras += state.fail_extra;
-				
-
-				var el = create_correction( {
-                  "right_answer": cmp == 1 ? state.fraction_a : state.fraction_b,
-                  "title": "Fout",
-				} );
-				show_feedback( "negative", el );
-				
-			}
-
-			// hand it back over to the showrunner
-			step_done( state );
-	
+			
+			result.is_correct = (element.id == "fraction_a" && cmp == 1) || (element.id == "fraction_b" && cmp == -1);
+			result.correct_answer = cmp == 1 ? state.fraction_a : state.fraction_b;
+			
+			return result;
 		},
 
 	};
