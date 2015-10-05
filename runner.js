@@ -57,7 +57,9 @@ function start_level() {
 
 	set_title( current_data.name );
 	
-	current_level.setup( current_data, document.getElementById("main") );
+	var stage = document.getElementById("main");
+	clear_element( stage );
+	current_level.setup( current_data, stage );
 	
 	run_level( current_data );
 	clock.start();
