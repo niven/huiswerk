@@ -30,9 +30,9 @@ function Level1() {
 				hnd( event.target, state );
 			}
 	
-			add_fraction_canvas( state.stage, "fraction_a", 200, onclick_handler );
-			add_fraction_canvas( state.stage, "fraction_b", 200, onclick_handler );
-			add_fraction_canvas( state.stage, "fraction_c", 200, onclick_handler );
+			add_fraction_canvas( state.stage, "fraction_0", 200, onclick_handler );
+			add_fraction_canvas( state.stage, "fraction_1", 200, onclick_handler );
+			add_fraction_canvas( state.stage, "fraction_2", 200, onclick_handler );
 
 		},
 
@@ -57,7 +57,7 @@ function Level1() {
 			}
 
 			// shuffle locations
-			var fractions = ["a", "b", "c"]; 
+			var fractions = [0, 1, 2]; 
 			fractions = shuffle( fractions  );
 
 			draw_fraction_as_circle( document.getElementById('fraction_' + fractions[0]), state.fraction_a, true );

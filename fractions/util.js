@@ -20,8 +20,6 @@ function shuffle( array ) {
     return array;
 }
 
-
-
 function rational_compare( fraction_a, fraction_b ) {
 	
 	var val_a = fraction_a.num * fraction_b.den;
@@ -56,6 +54,21 @@ function rational_simplify( rational ) {
 	};
 }
 
+function unique_rationals_array( count, max_denominator ) {
+	
+	var result = [];
+	var fraction;
+	for( var i=0; i<count; i++ ) {
+		do {
+			fraction = Rational( max_denominator );
+		} while( !result.every( function(r) { return rational_compare(r, fraction) != 0 } ) );
+		result[i] = fraction;
+	}
+
+	return result;
+}
+
+
 function add_fraction_canvas( parent_element, id, size, onclick_handler ) {
 	
 	var canvas = document.getElementById( id );
@@ -74,7 +87,6 @@ function add_fraction_canvas( parent_element, id, size, onclick_handler ) {
 
 
 function draw_fraction_as_circle( canvas, rational, show_as_text ) {
-	
 	
 	var width = canvas.width;
 	var height = canvas.height;
@@ -116,9 +128,23 @@ function draw_fraction_as_circle( canvas, rational, show_as_text ) {
 
 }
 
-function print_fraction( ctx, rational, width, height ) {
+function draw_fraction_as_text( canvas, rational ) {
 	
-	var font_size_px = Math.ceil(height / 10);
+	var width = canvas.width;
+	var height = canvas.height;
+	
+	var ctx = canvas.getContext("2d");
+	ctx.fillStyle = "rgb(255,255,255)";
+	ctx.fillRect(0, 0, width, height);
+	
+	print_fraction( ctx, rational, width, height, 4 );
+}
+
+function print_fraction( ctx, rational, width, height, scale ) {
+	
+	scale = scale == null ? 1 : scale;
+	
+	var font_size_px = Math.ceil(height / 10*scale);
 	ctx.font = font_size_px + "px monospace";
 	ctx.fillStyle = "black";
 	ctx.lineWidth = 3;

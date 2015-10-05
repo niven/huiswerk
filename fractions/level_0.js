@@ -30,33 +30,29 @@ function Level0() {
 				hnd( event.target, state );
 			}
 	
-			add_fraction_canvas( state.stage, "fraction_a", 300, onclick_handler );
-			add_fraction_canvas( state.stage, "fraction_b", 300, onclick_handler );
+			add_fraction_canvas( state.stage, "fraction_0", 300, onclick_handler );
+			add_fraction_canvas( state.stage, "fraction_1", 300, onclick_handler );
 
 		},
 
 		"make": function( state ) {
 
-			state.fraction_a = state.fraction_b = Rational( 10 );
+			state.fractions = unique_rationals_array( 2, 10 );
+			state.largest_fraction = state.fractions.sort( rational_compare )[1];
 
-			do {
-				state.fraction_b = Rational( 10 );
-			} while( rational_compare( state.fraction_a, state.fraction_b ) == 0 );
-	
-			state.largest_fraction = ( state.fraction_b.den * state.fraction_a.num ) > ( state.fraction_a.den * state.fraction_b.num ) ? "A" : "B";
-
-			draw_fraction_as_circle( document.getElementById('fraction_a'), state.fraction_a, true );
-			draw_fraction_as_circle( document.getElementById('fraction_b'), state.fraction_b, true );
+			state.fractions.forEach( function(f, idx) {
+				draw_fraction_as_circle( document.getElementById('fraction_' + idx), f, true );
+			});
 		},
 
 		"result": function( element, state ) {
 			
 			var result = {};
 			
-			var cmp = rational_compare(state.fraction_a, state.fraction_b);
+			var cmp = rational_compare(state.fractions[0], state.fractions[1]);
 			
-			result.is_correct = (element.id == "fraction_a" && cmp == 1) || (element.id == "fraction_b" && cmp == -1);
-			result.correct_answer = cmp == 1 ? state.fraction_a : state.fraction_b;
+			result.is_correct = (element.id == "fraction_0" && cmp == 1) || (element.id == "fraction_1" && cmp == -1);
+			result.correct_answer = cmp == 1 ? state.fractions[0] : state.fractions[1];
 			
 			return result;
 		},
