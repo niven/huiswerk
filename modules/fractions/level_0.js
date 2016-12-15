@@ -39,7 +39,8 @@ function Level0() {
 		"make": function( state ) {
 
 			state.fractions = unique_rationals_array( 2, 10 );
-			state.largest_fraction = state.fractions.sort( rational_compare )[1];
+			state.largest_fraction = state.fractions.sort( rational_compare )[1]; // sorts IN PLACE
+			shuffle( state.fractions );
 
 			state.fractions.forEach( function(f, idx) {
 				draw_fraction_as_circle( document.getElementById('fraction_' + idx), f, true );
