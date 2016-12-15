@@ -1,4 +1,4 @@
-levels.push( new Level_smallest_as_text( 2 ) );
+//levels.push( new Level_smallest_as_text( 2 ) );
 levels.push( new Level_smallest_as_text( 3 ) );
 
 function Level_smallest_as_text( num_fractions ) {
@@ -10,7 +10,7 @@ function Level_smallest_as_text( num_fractions ) {
 				"manual": "Je ziet steeds " + num_fractions + " breuken, kies de breuk die het kleinst is.",
 				"correct_to_pass": 20,
 				"fail_extra": 3,
-				"num_fractions": 2,
+				"num_fractions": num_fractions,
 			}
 		},
 

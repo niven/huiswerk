@@ -58,7 +58,7 @@ function start_level() {
 	set_title( current_data.name );
 	
 	var stage = document.getElementById("main");
-	clear_element( stage );
+	clear_element( "main" );
 	current_level.setup( current_data, stage );
 	
 	run_level( current_data );

@@ -1,4 +1,4 @@
-levels.push( new Level1() );
+//levels.push( new Level1() );
 
 function Level1() {
 	
