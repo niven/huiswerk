@@ -13,8 +13,6 @@ do the next one etc.
 This means that this is not a controller: control is handed off betweent the level and the runner.
 To make this work State is passed around.
 
-Note: since this holds some global vars and the Levels array the levels add themselves into, this must be loaded first
-
 */
 
 var levels = [];
@@ -27,24 +25,24 @@ var intervalID;
 
 var count = 0;
 
-function init() {
+function runner_init() {
 
 	clock = Clock( document.getElementById("clock") );
 	clock.pause();
 	intervalID = window.setInterval( function() { clock.display(); }, 100 );
 
-	next_level();
+	runner_next_level();
 }
 
-function next_level() {
-
+function runner_next_level() {
+	console.log(levels);
 	if( levels.length > 0 ) {
 		update_progress( 0, 1 );
 		
 		current_level = levels.shift();
 		current_data = current_level.data();
 
-		show_modal("Level " + level_number  + ": " + current_data.name, current_data.manual, start_level );
+		show_modal("Level " + level_number  + ": " + current_data.name, current_data.manual, runner_start_level );
 
 		set_level( level_number++ );		
 	} else {
@@ -53,7 +51,7 @@ function next_level() {
 
 }
 
-function start_level() {
+function runner_start_level() {
 
 	set_title( current_data.name );
 	
@@ -61,25 +59,25 @@ function start_level() {
 	clear_element( "main" );
 	current_level.setup( current_data, stage );
 	
-	run_level( current_data );
+	runner_run_level( current_data );
 	clock.start();
 }
 
-function step_done( state ) {
+function runner_step_done( state ) {
 	
 	update_score( state.points_earned );
 	
 	update_progress( state.correct, state.correct_to_pass + (state.fail_extra * state.fail) );
 	
-	run_level( state );	
+	runner_run_level( state );	
 }
 
-function run_level( state ) {
+function runner_run_level( state ) {
 	
 	if( current_level.done( state ) ) {
 		
 		clock.pause();
-		next_level();
+		runner_next_level();
 		
 	} else {
 		current_level.make( state );
@@ -87,7 +85,7 @@ function run_level( state ) {
 	
 }
 
-function check_answer( target, state ) {
+function runner_check_answer( target, state ) {
 
 	var result = this.result(target, state);
 
@@ -112,6 +110,6 @@ function check_answer( target, state ) {
 	}
 
 	// hand it back over to the showrunner
-	step_done( state );
+	runner_step_done( state );
 	
 }

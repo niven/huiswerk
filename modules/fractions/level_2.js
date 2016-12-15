@@ -1,4 +1,4 @@
-//levels.push( new Level_smallest_as_text( 2 ) );
+load_js("modules/fractions/util.js");
 levels.push( new Level_smallest_as_text( 3 ) );
 
 function Level_smallest_as_text( num_fractions ) {
@@ -27,7 +27,7 @@ function Level_smallest_as_text( num_fractions ) {
 			state.stage = stage_element;
 	
 			// binding the checker to this object, and then later calling it after user clicks on something
-			var hnd = check_answer.bind( this );
+			var hnd = runner_check_answer.bind( this );
 			var onclick_handler = function( event ) {
 				hnd( event.target, state );
 			}

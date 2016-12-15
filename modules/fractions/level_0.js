@@ -1,4 +1,5 @@
-//levels.push( new Level0() );
+load_js("modules/fractions/util.js");
+levels.push( new Level0() );
 
 function Level0() {
 	
@@ -25,7 +26,7 @@ function Level0() {
 			state.stage = stage_element; // this is where we run the level (some HTML element (most likely a div))
 
 			// binding the checker to this object, and then later calling it after user clicks on something
-			var hnd = check_answer.bind( this );
+			var hnd = runner_check_answer.bind( this );
 			var onclick_handler = function( event ) {
 				hnd( event.target, state );
 			}

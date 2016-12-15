@@ -12,7 +12,6 @@ function select_level_run() {
 	for( var i=0; i<modules.length; i++ ) {
 		var level = base.cloneNode( true );
 		
-		console.log(level.firstChild, modules[i]);
 		level.firstChild.textContent = modules[i].title;
 		level.setAttribute("module_index", i);
 		level.style.visibility = "visible";
@@ -22,6 +21,23 @@ function select_level_run() {
 
 	// show the level select screen
 	container.style.visibility = "visible";
+}
+
+var num_levels_to_load = 0;
+function select_level_waitforload() {
+	
+	num_levels_to_load--;
+	
+	if( num_levels_to_load == 0 ) {
+	
+		// hide the level select screen
+		document.getElementById("select_screen").style.display = "none";
+
+		// hand off to runner
+		runner_init();
+		
+	}
+	
 }
 
 function select_level_start() {
@@ -35,23 +51,25 @@ function select_level_start() {
 			selected_levels.push( levels.item(i).getAttribute("module_index") );
 		}
 	}	
-	console.log(selected_levels);
+
 	// error if none were selected
 	if( selected_levels.length == 0 ) {
 		show_modal("Selecteer levels", "Selecteer eerst de levels om te oefenen", null);
 		return;
 	}
-	
-	// hand off to runner
+	num_levels_to_load = selected_levels.length;
 
-	// hide the level select screen
-	document.getElementById("select_screen").style.display = "none";
+	// load the required levels
+	selected_levels.forEach( function(el, idx, arr) {
+		console.log( "Loading " + modules[el].title );
+		load_js( "modules/" + modules[el].level_file, select_level_waitforload );
+	});
 	
 }
 
 function select_level_toggle( element ) {
 	var classNames = element.getAttribute("class"); 
-	console.log(classNames);
+
 	if( classNames == "level" ) {
 		element.setAttribute("class", "level selected");
 	} else {
