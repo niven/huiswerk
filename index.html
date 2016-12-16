@@ -1,6 +1,8 @@
-<html>
-
+<!DOCTYPE html>
+<html lang="nl-NL">
 <head>
+	<meta charset="utf-8">
+	
 	<title>Rekenen</title>
 	
 	
@@ -13,17 +15,32 @@
 <script type="text/javascript" src="select_level.js"></script>
 <script type="text/javascript" src="ui/behaviours.js"></script>
 
-<!-- load the index files for every module -->
+<!-- load the index and CSS files for every module -->
 <script type="text/javascript" src="modules/fractions/index.js"></script>
+
 <script type="text/javascript" src="modules/multiplication/index.js"></script>
+<link rel="stylesheet" type="text/css" href="modules/multiplication/looknfeel.css"/>
+
+<script type="text/javascript">
+
+function debug() {
+	
+	// var level_mul2x2 = document.getElementById("level_3");
+	// level_mul2x2.setAttribute("class", "level selected");
+	//
+	// document.getElementById("select_screen_startbutton").click();
+	
+}
+
+</script>
 
 </head>
 
-<body onload="select_level_run();">
+<body onload="select_level_run(); debug();">
 
 <!-- Level select screen -->
 <div id="select_screen" class="panel_look">
-	<button onclick="select_level_start();">START!</button>
+	<button id="select_screen_startbutton" onclick="select_level_start();">START!</button>
 <!-- level select fragment, no whitespace so there are not empty #text nodes -->
 <div id="select_level_fragment" class="level" style="visibility: hidden;" onclick="select_level_toggle(this);"><h1 class="titlebar">LEVEL TITLE</h1><div class="panel panel_look"><img/></div></div>
 </div>

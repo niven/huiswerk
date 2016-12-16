@@ -164,14 +164,6 @@ function print_fraction( ctx, rational, width, height, scale ) {
 	
 }
 
-function clear_element( id ) {
-	
-	var el = document.getElementById( id );
-	while( el.hasChildNodes() ) {
-		el.removeChild( el.firstChild );
-	}
-	
-}
 
 
 function create_correction( params ) {

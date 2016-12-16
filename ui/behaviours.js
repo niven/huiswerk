@@ -85,5 +85,6 @@ function show_modal( title, text, callback_after_close ) {
 	}
 	
 	document.getElementById("modal-1").classList.add("md-show");
+	// TODO: focus so <enter> works
 }
 

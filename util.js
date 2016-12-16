@@ -14,3 +14,13 @@ function load_js( path, callback ) {
 	document.head.appendChild( script );
 	
 }
+
+function clear_element( id ) {
+	
+	var el = document.getElementById( id );
+	while( el.hasChildNodes() ) {
+		el.removeChild( el.firstChild );
+	}
+	
+}
+

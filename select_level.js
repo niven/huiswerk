@@ -12,6 +12,7 @@ function select_level_run() {
 	for( var i=0; i<modules.length; i++ ) {
 		var level = base.cloneNode( true );
 		
+		level.setAttribute("id", "level_" + i );
 		level.firstChild.textContent = modules[i].title;
 		level.setAttribute("module_index", i);
 		level.style.visibility = "visible";
