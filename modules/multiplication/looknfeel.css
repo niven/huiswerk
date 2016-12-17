@@ -14,3 +14,8 @@
 #mul_table button {
 	padding: 0;
 }
+
+#mul_table .num_input {
+	direction: rtl;
+	unicode-bidi: bidi-override;
+}

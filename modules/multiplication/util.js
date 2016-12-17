@@ -5,10 +5,10 @@ function add_mul_table( parent_element, process_result_handler ) {
 		<tr><td id="mul_a" class="mul">17</td></tr>\
 		<tr><td id="mul_b" class="mul">78</td></tr>\
 		<tr><td><hr><td>&times;</td></tr>\
-		<tr><td><input id="result_0" type="text"></td></tr>\
-		<tr><td><input id="result_1" type="text"></td></tr>\
+		<tr><td><input id="result_0" type="text" class="num_input"></td></tr>\
+		<tr><td><input id="result_1" type="text" class="num_input"></td></tr>\
 		<tr><td><hr><td>&plus;</td></tr>\
-		<tr><td><input id="result_2" type="text"></td><td><button id="check_button">&rightarrow;</button></td></tr>\
+		<tr><td><input id="result_2" type="text" class="num_input"></td><td><button id="check_button">&rightarrow;</button></td></tr>\
 	</table>\
 	';
 	

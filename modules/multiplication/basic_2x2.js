@@ -8,8 +8,8 @@ function Basic_Multiplication_2x2() {
 			return {
 				"name": "Vermenigvuldigen 2x2",
 				"manual": "Vermenigvuldig de getallen met de schoolmethode.\nOp de eerste regel de eentallen maal het bovenste getal, op de tweede regel de tientallen maal het bovenste getal. Op de derde regel tel je op voor het uiteindelijke antwoord.",
-				"correct_to_pass": 8,
-				"fail_extra": 2,
+				"correct_to_pass": 10,
+				"fail_extra": 1,
 			}
 		},
 
