@@ -1,0 +1,79 @@
+// a module is a self contained group of levels around some topic (fractions, topology, etc)
+// every level.js file in a a modules directory defines a level.
+
+// load any libs you need
+load_js("modules/example/trig_functions.js");
+
+// Add this level (1 level per file) to the levels array used for level selection
+levels.push( new Basic_Multiplication_2x2() );
+
+function Advanced_Trigonometry_Practice() {
+	
+	return {
+		// mandatory field that inits the 'state' that is passed around.
+		"data": function() {
+			return {
+				"name": "SHORT_DESCRIPTION_OF_LEVEL",
+				"manual": "LONG_DESCRIPTION_OF_LEVEL",
+				"correct_to_pass": NUM_OF_QUESTIONS_OR_THINGS_TO_PASS_TO_FINISH_THE_LEVEL,
+				"fail_extra": HOW_MANY_EXTRA_PENALTY_QUESTIONS_TO_AVOID_ADVANCING_BY_JUST_CLICKING,
+			}
+		},
+
+		// Is the level over?
+		"done": function( state ) {
+			
+			return state.correct >= state.correct_to_pass + state.extras;
+		},
+
+		// setup any additional state values and create any HTML needed for display on the Stage (which is the subarea where you display stuff)
+		"setup": function( state, stage_element ) {
+	
+			state.correct = 0;
+			state.fail = 0;
+			state.extras = 0;
+			state.stage = stage_element; // this is where we run the level (some HTML element (most likely a div))
+
+			// binding the checker to this object, and then later calling it after user clicks on something
+			var hnd = runner_check_answer.bind( this );
+			var process_result_handler = function( event ) {
+				hnd( event.target, state );
+			}
+			
+			some_function_that_adds_a_table_or_div_or_canvas( state.stage, process_result_handler );
+
+		},
+
+		// runs in every iteration to create a question/sum
+		"make": function( state ) {
+
+			state.some_value = YOUR_VALUE_HERE;
+			state.some_other_Value = SOME_OTHER_VALUE;
+
+			document.getElementById("some_div").innerHtml = state.whatever;
+			document.getElementById("some_span").textContent = WITTICISMS[ Math.floor(Math.random(20)) ];
+		},
+
+		// the runner check answer function calls this to figure out if the answer is correct
+		// here also put some stuff in the state like the correct answer.
+		// element: usually the element clicked on, or an input field. This allows answering by clicking on something. (just store extra data in the element)
+		// OUT: result => { is_correct: true|false, other_optional_stuff_you_want_to_keep_track_of: ?? }
+		"result": function( element, state ) {
+			
+			var result = {};
+			
+			result.is_correct = false || true;
+			result.correct_answer = state.VALUE / state.VALUE2 + some_internal_function();
+			
+			return result;
+		},
+
+		// return an HTML element that gives feedback when a wrong anser was given.
+		// e.g., <span>2+3 = 5, not 16!</span> 
+		"create_correction": function( state ) {
+
+			
+		},
+
+	};
+}
