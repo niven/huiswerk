@@ -35,7 +35,7 @@ function runner_init() {
 }
 
 function runner_next_level() {
-	console.log(levels);
+
 	if( levels.length > 0 ) {
 		update_progress( 0, 1 );
 		
@@ -92,7 +92,7 @@ function runner_check_answer( target, state ) {
 	// mistakes mean more sums
 	if( result.is_correct ) {
 		state.correct++;
-		state.points_earned = 25;
+		state.points_earned = 25; // TODO: config? depends on module probably
 		var el = document.createElement("span");
 		el.innerHTML = "Goed!";
 		show_feedback( "positive", el );
@@ -101,10 +101,8 @@ function runner_check_answer( target, state ) {
 		state.points_earned = -10;
 		state.extras += state.fail_extra;	
 
-		var el = create_correction( {
-            "right_answer": result.correct_answer,
-            "title": "Fout",
-		} );
+		var correction = current_level.create_correction( state );
+		var el = correction_display( correction );
 		show_feedback( "negative", el );
 		
 	}

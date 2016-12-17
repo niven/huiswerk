@@ -14,8 +14,17 @@ function add_mul_table( parent_element, process_result_handler ) {
 	
 	parser = new DOMParser();
 	htmlDoc = parser.parseFromString(mul_table_str, "text/html");
+	var table_el = htmlDoc.getElementById("mul_table");
 
-	parent_element.appendChild( htmlDoc.getElementById("mul_table") );
+
+	htmlDoc.getElementById("result_2").onkeyup = function( event ) {
+		if( event.keyCode == 13 ) { // respond to <enter>
+			process_result_handler( event );
+		}
+	}
+	htmlDoc.getElementById("check_button").onclick = process_result_handler;
+
+	parent_element.appendChild( table_el );
 
 }
 

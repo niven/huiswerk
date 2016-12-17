@@ -7,8 +7,7 @@ function Basic_Multiplication_2x2() {
 		"data": function() {
 			return {
 				"name": "Vermenigvuldigen 2x2",
-				"manual": "Klik OK",
-//				"manual": "Vermenigvuldig de getallen met de schoolmethode.\nOp de eerste regel de eentallen maal het bovenste getal, op de tweede regel de tientallen maal het bovenste getal. Op de derde regel tel je op voor het uiteindelijke antwoord.",
+				"manual": "Vermenigvuldig de getallen met de schoolmethode.\nOp de eerste regel de eentallen maal het bovenste getal, op de tweede regel de tientallen maal het bovenste getal. Op de derde regel tel je op voor het uiteindelijke antwoord.",
 				"correct_to_pass": 8,
 				"fail_extra": 2,
 			}
@@ -42,18 +41,31 @@ function Basic_Multiplication_2x2() {
 
 			document.getElementById("mul_a").textContent = state.mul_a;
 			document.getElementById("mul_b").textContent = state.mul_b;
+			
+			// clear the inputs
+			for( var i=0; i<3; i++ ) {
+				document.getElementById("result_" + i).value = "";
+			}
 		},
 
 		"result": function( element, state ) {
 			
+			// don't care about the element, could be <enter> in the input field or click on the button
+			var answer = document.getElementById("result_2").value;
+			
 			var result = {};
-			
-			var cmp = rational_compare(state.fractions[0], state.fractions[1]);
-			
-			result.is_correct = (element.id == "fraction_0" && cmp == 1) || (element.id == "fraction_1" && cmp == -1);
-			result.correct_answer = cmp == 1 ? state.fractions[0] : state.fractions[1];
-			
+
+			result.correct_answer = state.mul_a * state.mul_b;
+			result.is_correct = result.correct_answer == answer;
+
 			return result;
+		},
+
+		"create_correction": function( state ) {
+
+			var sum = document.createElement("div");
+ 			sum.innerHTML = state.mul_a + " &times; " + state.mul_b + " = " + (state.mul_a * state.mul_b);
+			return sum; 
 		},
 
 	};

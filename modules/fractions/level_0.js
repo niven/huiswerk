@@ -58,6 +58,10 @@ function Level0() {
 			
 			return result;
 		},
+		
+		"create_correction": function( state ) {
+			return create_correction_generic( state.correct_answer );
+		},
 
 	};
 }

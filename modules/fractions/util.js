@@ -164,24 +164,12 @@ function print_fraction( ctx, rational, width, height, scale ) {
 	
 }
 
-
-
-function create_correction( params ) {
+function create_correction_generic( correct_answer ) {
 	
-
-	var feedback_panel = document.createElement("div");
-	feedback_panel.setAttribute("class", "feedback");
-	// feedback_panel.appendChild( document.createTextNode( params.title ) );
-
-	feedback_panel.appendChild( document.createTextNode( "Het was:") );
 	var canvas = document.createElement("canvas");
 	canvas.setAttribute("width", "160px");
 	canvas.setAttribute("height", "160px");
-	feedback_panel.appendChild( canvas );
+	draw_fraction_as_circle( canvas, correct_answer, true);
 	
-	draw_fraction_as_circle( canvas, params.right_answer, true);
-	
-	return feedback_panel;
+	return canvas;
 }
-
-
