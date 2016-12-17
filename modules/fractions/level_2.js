@@ -54,8 +54,6 @@ function Level_smallest_as_text( num_fractions ) {
 
 		"result": function( element, state ) {
 			
-			console.log(state.mapping, state.fractions);
-			
 			var result = {};
 			
 			result.is_correct = state.mapping[element.id] == state.smallest;

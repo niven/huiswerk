@@ -62,7 +62,6 @@ function select_level_start() {
 
 	// load the required levels
 	selected_levels.forEach( function(el, idx, arr) {
-		console.log( "Loading " + modules[el].title );
 		load_js( "modules/" + modules[el].level_file, select_level_waitforload );
 	});
 	
