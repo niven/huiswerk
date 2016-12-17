@@ -2,8 +2,9 @@ function add_mul_table( parent_element, process_result_handler ) {
 	
 	var mul_table_str = '\
 	<table id="mul_table">\
-		<tr><td id="mul_a" class="mul">17</td></tr>\
-		<tr><td id="mul_b" class="mul">78</td></tr>\
+		<tr><td id="mem"><input type="text"><input type="text"><input type="text" style="border-right-width: 1px; margin-right: 0.6em;"></td></tr>\
+		<tr><td id="mul_a" class="mul">NUM_A</td></tr>\
+		<tr><td id="mul_b" class="mul">NUM_B</td></tr>\
 		<tr><td><hr><td>&times;</td></tr>\
 		<tr><td><input id="result_0" type="text" class="num_input"></td></tr>\
 		<tr><td><input id="result_1" type="text" class="num_input"></td></tr>\
