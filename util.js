@@ -36,4 +36,8 @@ function correction_display( el ) {
 	return feedback_panel;
 }
 
-
+function rand_int( up_to_excluding ) {
+	
+	return Math.floor( Math.random() * up_to_excluding );
+	
+}

@@ -64,7 +64,12 @@ function Basic_Multiplication_2x2() {
 		"create_correction": function( state ) {
 
 			var sum = document.createElement("div");
- 			sum.innerHTML = state.mul_a + " &times; " + state.mul_b + " = " + (state.mul_a * state.mul_b);
+			sum.style.textAlign = "left";
+ 			sum.innerHTML = state.mul_b + " &times; " + state.mul_a + " =<br>"
+				 				+ (state.mul_b % 10) + "&times;" + state.mul_a + " + "
+				 				+ (10 * Math.floor(state.mul_b / 10)) + "&times;" + state.mul_a + " =<br>"
+								+ (state.mul_b % 10) * state.mul_a + " + " + (10 * Math.floor(state.mul_b / 10) * state.mul_a) + " =<br>"
+								+ (state.mul_a * state.mul_b);
 			return sum; 
 		},
 

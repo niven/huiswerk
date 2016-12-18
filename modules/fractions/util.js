@@ -165,7 +165,7 @@ function print_fraction( ctx, rational, width, height, scale ) {
 }
 
 function create_correction_generic( correct_answer ) {
-	
+
 	var canvas = document.createElement("canvas");
 	canvas.setAttribute("width", "160px");
 	canvas.setAttribute("height", "160px");

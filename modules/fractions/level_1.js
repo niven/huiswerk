@@ -77,6 +77,11 @@ function Level1() {
 			
 			return result;
 		},
+		
+		"create_correction": function( state ) {
+			return create_correction_generic( state.fraction_c );
+		},
+		
 
 	};
 }

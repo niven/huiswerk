@@ -60,7 +60,7 @@ function Level0() {
 		},
 		
 		"create_correction": function( state ) {
-			return create_correction_generic( state.correct_answer );
+			return create_correction_generic( state.largest_fraction );
 		},
 
 	};

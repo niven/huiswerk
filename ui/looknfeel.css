@@ -99,7 +99,7 @@ body {
 	opacity: 1;
 	transition: opacity 1s;
 	transition-timing-function: cubic-bezier(0.95, 0.05, 0.795, 0.035);
-	transition-delay: 3s;
+	transition-delay: 10s; /* TODO: maybe make this per-module depending on comprehension time? */
 }
 .feedback_positive {
 	border-color: green;

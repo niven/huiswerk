@@ -62,5 +62,10 @@ function Level_smallest_as_text( num_fractions ) {
 			return result;
 		},
 
+		"create_correction": function( state ) {
+			return create_correction_generic( state.smallest );
+		},
+
+
 	};
 }
