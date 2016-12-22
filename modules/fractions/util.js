@@ -164,6 +164,43 @@ function print_fraction( ctx, rational, width, height, scale ) {
 	
 }
 
+var fraction_slash = '&frasl;';
+
+function numerator( n ) {
+
+	var out = "&#x"; // unicode entity in hex
+	if( n == 1 ) {
+		out += '00b9';
+	} else if( n == 2 ) {
+		out += '00b2';
+	} else if( n == 3 ) {
+		out += '00b3';
+	} else if( n > 9 ) {
+		return numerator( Math.floor(n/10) ) + numerator( n % 10 );
+	} else {
+		out += '207' + n;		
+	}
+		
+	return out + ";";
+}
+function denominator( n ) {
+
+	var out = "&#x"; // unicode entity in hex
+	if( n > 9 ) {
+		return denominator( Math.floor(n/10) ) + denominator( n % 10 );
+	} else {
+		out += '208' + n;		
+	}
+		
+	return out + ";";
+}
+
+function html_entity_from_fraction( num, den ) {
+	return numerator(num) + fraction_slash + denominator(den);
+}
+
+
+
 function create_correction_generic( correct_answer ) {
 
 	var canvas = document.createElement("canvas");
