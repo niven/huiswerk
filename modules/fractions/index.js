@@ -15,7 +15,7 @@ modules.push(
 	{
 		"title": "Kleinste breuk",
 		"description": "Kleinste breuk, geen plaatjes",
-		"level_file": "fractions/level_2.js"
+		"level_file": "fractions/smallest_fraction.js"
 	}
 
 
