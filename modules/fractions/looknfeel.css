@@ -1,0 +1,24 @@
+.fraction_text {
+
+	font-size: 800%;
+	padding: 0.1em;
+	cursor: pointer;
+	margin: auto 0.2em;
+	
+	color: #fff;
+	  background-color: #6496c8;
+	  border: none;
+	  border-radius: 15px;
+	  box-shadow: 0 10px #27496d;
+	
+}
+
+.fraction_text:hover {
+	  background-color: #417cb8
+}
+
+.fraction_text:active {
+	background-color: #417cb8;
+	  box-shadow: 0 5px #27496d;
+	  transform: translateY(5px);
+}
