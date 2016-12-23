@@ -33,7 +33,11 @@ function Level_smallest_as_text( num_fractions ) {
 			}
 	
 			for( var i=0; i<state.num_fractions; i++ ) {
-				add_fraction_canvas( state.stage, "fraction_" + i, 200, onclick_handler );
+				var frac = document.createElement("div");
+				frac.setAttribute("id", "fraction_text_" + i);
+				frac.setAttribute("class", "fraction_text");
+				frac.onclick = onclick_handler;
+				state.stage.appendChild( frac );
 			}
 		},
 
@@ -41,10 +45,11 @@ function Level_smallest_as_text( num_fractions ) {
 			
 			state.fractions = unique_rationals_array( state.num_fractions, 10 );
 
+			// map the element id to the fractions so when clicked we can just easily retrieve it			
 			state.mapping = {};	
 			for( var i=0; i<state.num_fractions; i++ ) {
-				draw_fraction_as_text( document.getElementById('fraction_' + i), state.fractions[i], true );
-				state.mapping[ 'fraction_' + i ] = state.fractions[i];
+				document.getElementById('fraction_text_' + i).innerHTML = html_entity_from_fraction( state.fractions[i].num, state.fractions[i].den );
+				state.mapping[ 'fraction_text_' + i ] = state.fractions[i];
 			}
 
 			// do the sort after, since it sorts the fractions in place and we don't want the smallest one
