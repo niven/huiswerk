@@ -8,6 +8,12 @@ modules.push(
 	},
 	
 	{
+		"title": "Letters Luisteren",
+		"description": "Kies de letter die je hoort",
+		"level_file": "lezen/letters_listen.js"
+	},
+	
+	{
 		"title": "Korte woorden",
 		"description": "Simpele woorden van 2 letters",
 		"level_file": "lezen/two_letter_words.js"

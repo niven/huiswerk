@@ -6,3 +6,33 @@
 	
 	cursor: pointer;
 }
+
+
+.single_letter {
+
+	font-size: 800%;
+	width: 1em;
+	color: #fff;
+	background-color: #6496c8;
+
+	text-align: center;
+	margin: auto 0.2em;
+	padding: 0.1em;
+
+	cursor: pointer;
+
+	border: none;
+	border-radius: 15px;
+	box-shadow: 0 10px #27496d;	
+}
+
+.single_letter:hover {
+	background-color: #417cb8
+}
+
+.single_letter:active {
+	background-color: #417cb8;
+	box-shadow: 0 5px #27496d;
+	transform: translateY(5px);
+}
+

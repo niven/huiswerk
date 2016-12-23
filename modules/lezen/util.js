@@ -76,3 +76,30 @@ function get_2_letter_word() {
 	
 }
 
+// Note: could result in profanity :)
+function unique_letters_array( count ) {
+	
+	var result = [];
+	var letter_num, letter;
+	for( var i=0; i<count; i++ ) {
+		do {
+			letter_num = "A".charCodeAt(0) + rand_int( 26 );
+			letter = String.fromCharCode( letter_num );
+		} while( !result.every( function(l) { return letter != l } ) );
+		result[i] = letter;
+	}
+
+	return result;
+}
+
+
+function load_audio( audio_dict, audio_base_path, files ) {
+	
+	Object.keys(files).forEach( function(el, idx, arr) {
+	
+		audio_dict[el] = new Audio(audio_base_path + files[el] );
+	
+	});
+	
+}
+
