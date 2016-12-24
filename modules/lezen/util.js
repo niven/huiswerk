@@ -77,7 +77,7 @@ function get_2_letter_word() {
 }
 
 // Note: could result in profanity :)
-function unique_letters_array( count ) {
+function unique_letters_array( count, exclude ) {
 	
 	var result = [];
 	var letter_num, letter;
@@ -85,7 +85,7 @@ function unique_letters_array( count ) {
 		do {
 			letter_num = "A".charCodeAt(0) + rand_int( 26 );
 			letter = String.fromCharCode( letter_num );
-		} while( !result.every( function(l) { return letter != l } ) );
+		} while( letter == exclude || !result.every( function(l) { return letter != l } ) );
 		result[i] = letter;
 	}
 

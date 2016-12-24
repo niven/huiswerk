@@ -47,12 +47,13 @@ function Letters_Listen() {
 			}
 
 			load_audio( state.audio, state.audio_path, this["audio_for_letters"] );
+			state.letter = 'Q'; // first letter we exclude
 		},
 
 		// runs in every iteration to create a question/sum
 		"make": function( state ) {
 
-			state.letters = unique_letters_array( 3 );
+			state.letters = unique_letters_array( 3, state.letter );
 			
 			// map the element id to the fractions so when clicked we can just easily retrieve it			
 			state.mapping = {};	
