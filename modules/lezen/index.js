@@ -14,9 +14,21 @@ modules.push(
 	},
 	
 	{
-		"title": "Korte woorden",
+		"title": "2 Letter Woorden",
 		"description": "Simpele woorden van 2 letters",
 		"level_file": "lezen/two_letter_words.js"
+	},
+
+	{
+		"title": "1 dier 2 woorden",
+		"description": "Zoek het woord bij het plaatje",
+		"level_file": "lezen/short_words_pictures.js"
+	},
+	
+	{
+		"title": "1 dier 3 woorden",
+		"description": "Zoek het woord bij het plaatje",
+		"level_file": "lezen/animals_3.js"
 	}
 
 

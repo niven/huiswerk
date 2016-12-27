@@ -68,7 +68,7 @@ function _recalc_letter_frequencies( freqs ) {
 	
 }
 
-var dutch_two_letter_words = ["in", "en", "op", "de", "af", "is", "om", "zo", "ze", "ga", "ik", "je", "nu", "na", "of", "pa", "ei"];
+var dutch_two_letter_words = ["ei","+","-","*", "paasei"];// ["in", "en", "op", "de", "af", "is", "om", "zo", "ze", "ga", "ik", "je", "nu", "na", "of", "pa", "ei"];
 
 function get_2_letter_word() {
 	
@@ -102,4 +102,6 @@ function load_audio( audio_dict, audio_base_path, files ) {
 	});
 	
 }
+
+
 

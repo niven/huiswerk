@@ -41,3 +41,37 @@ function rand_int( up_to_excluding ) {
 	return Math.floor( Math.random() * up_to_excluding );
 	
 }
+
+// Fisher-Yates
+function shuffle( array ) {
+	
+    var counter = array.length, temp, index;
+
+    // While there are elements in the array
+    while (counter > 0) {
+        // Pick a random index
+        index = Math.floor(Math.random() * counter);
+
+        // Decrease counter by 1
+        counter--;
+
+        // And swap the last element with it
+        temp = array[counter];
+        array[counter] = array[index];
+        array[index] = temp;
+    }
+
+    return array;
+}
+
+
+function array_subset( array, count, exclude ) {
+	
+	var result;
+	do {
+		array = shuffle(array);
+		result = array.slice(0, count);
+	} while( result.includes(exclude) );
+	
+	return result;
+}

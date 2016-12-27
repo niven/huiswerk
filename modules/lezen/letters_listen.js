@@ -12,7 +12,7 @@ function Letters_Listen() {
 			return {
 				"name": "Letters Luisteren",
 				"manual": "Klik op de letter die voorgelezen wordt.",
-				"correct_to_pass": 10,
+				"correct_to_pass": 20,
 				"fail_extra": 1,
 			}
 		},

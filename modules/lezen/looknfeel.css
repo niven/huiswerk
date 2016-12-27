@@ -36,3 +36,37 @@
 	transform: translateY(5px);
 }
 
+#image {
+	border-width: 1em;
+	border-radius: 15px;
+	margin-bottom: 3ex;
+}
+
+#words_box {
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.short_word {
+
+	font-size: 600%;
+	color: #fff;
+	background-color: #6496c8;
+
+	text-align: center;
+	margin: auto 0.2em;
+	padding: 0.1em;
+
+	cursor: pointer;
+
+	border: none;
+	border-radius: 15px;
+	box-shadow: 0 10px #27496d;	
+}
+
+.short_word:hover {
+	background-color: #417cb8
+}
+
