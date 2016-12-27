@@ -16,6 +16,10 @@ function select_level_run() {
 		level.firstChild.textContent = modules[i].title;
 		level.setAttribute("module_index", i);
 		level.style.visibility = "visible";
+		if( modules[i].icon ) {
+			var imgs = level.getElementsByTagName("img");
+			imgs[0].src = "modules/" + modules[i].icon;
+		}
 		
 		container.insertBefore( level, container.firstChild );
 	}

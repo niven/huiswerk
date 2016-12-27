@@ -21,6 +21,7 @@ modules.push(
 
 	{
 		"title": "1 dier 2 woorden",
+		"icon": "lezen/icon_1animal2words.jpg",
 		"description": "Zoek het woord bij het plaatje",
 		"level_file": "lezen/short_words_pictures.js"
 	},

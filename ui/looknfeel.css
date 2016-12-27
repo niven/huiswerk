@@ -230,6 +230,15 @@ button {
 	background-color: green;
 }
 
+#select_screen > div.level > div.panel {
+	display: flex;
+	justify-content: center;
+}
+#select_screen > div.level > div.panel > img.level_icon {
+	height: 80px;
+	border-radius: 5px;
+}
+
 .vertical_box {
 	display: flex;
 	align-items: center;
