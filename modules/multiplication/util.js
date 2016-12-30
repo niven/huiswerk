@@ -29,8 +29,10 @@ function add_mul_table( parent_element, process_result_handler ) {
 
 }
 
-function random_2digit() {
+function random_n_digit( digits ) {
 	
-	return 10 + Math.floor(Math.random() * 90);
-	
+	var max = Math.pow(10, digits ); // 2 digits -> 100, 3 digits -> 1000
+	var min = Math.pow(10, digits-1 ); // 2 digits -> 10, 3 digits -> 100
+
+	return min + Math.floor(Math.random() * (max-min));
 }
