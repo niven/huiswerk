@@ -1,11 +1,5 @@
 // a module is a self contained group of levels around some topic (fractions, topology, etc)
-// every level.js file in a a modules directory defines a level.
-
-// load any libs you need
-load_js("modules/example/trig_functions.js");
-
-// Add this level (1 level per file) to the levels array used for level selection
-levels.push( new Basic_Multiplication_2x2() );
+// Every file defines an activity and is loaded in the index.js dependencies array
 
 function Advanced_Trigonometry_Practice() {
 	
