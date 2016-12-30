@@ -70,3 +70,12 @@
 	background-color: #417cb8
 }
 
+#color_box {
+	width: 16em;
+	height: 10em;
+	margin-bottom: 2em;
+	
+	border-radius: 15px;
+	border: thin solid black;
+}
+

@@ -3,12 +3,12 @@ dependencies.push(
 	"lezen/short_words_pictures.js",
 	"lezen/letters_listen.js",
 	"lezen/letters.js",
-	"lezen/two_letter_words.js"
+	"lezen/two_letter_words.js",
+	"lezen/colors.js"
 );
 
 // these show up on the selection screen
 modules.push( 
-
 	
 	{
 		"title": "2 Letter Woorden",
@@ -16,6 +16,15 @@ modules.push(
 		"icon": "lezen/icon_2letterwords.jpg",
 		"get_level": function() {
 			return new Two_Letter_Words();
+		}
+	},
+	
+	{
+		"title": "Kleuren",
+		"description": "Alle kleuren van de regenboog",
+		"icon": "lezen/icon_colors.png",
+		"get_level": function() {
+			return new Color_Words();
 		}
 	},
 	
