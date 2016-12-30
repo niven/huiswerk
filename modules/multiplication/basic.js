@@ -1,15 +1,14 @@
-load_js("modules/multiplication/util.js");
-levels.push( new Basic_Multiplication_2x2() );
 
-function Basic_Multiplication_2x2() {
+function Basic_Multiplication( digits ) {
 	
 	return {
 		"data": function() {
 			return {
-				"name": "Vermenigvuldigen 2x2",
+				"name": "Vermenigvuldigen " + digits + "x" + digits,
 				"manual": "Vermenigvuldig de getallen met de schoolmethode.\nOp de eerste regel de eentallen maal het bovenste getal, op de tweede regel de tientallen maal het bovenste getal. Op de derde regel tel je op voor het uiteindelijke antwoord.",
 				"correct_to_pass": 10,
 				"fail_extra": 1,
+				"digits": digits
 			}
 		},
 
@@ -36,8 +35,8 @@ function Basic_Multiplication_2x2() {
 
 		"make": function( state ) {
 
-			state.mul_a = random_2digit();
-			state.mul_b = random_2digit();
+			state.mul_a = random_n_digit( state.digits );
+			state.mul_b = random_n_digit(state.digits );
 
 			document.getElementById("mul_a").textContent = state.mul_a;
 			document.getElementById("mul_b").textContent = state.mul_b;
