@@ -1,7 +1,6 @@
-load_js("modules/fractions/util.js");
-levels.push( new Level0() );
 
-function Level0() {
+
+function Biggest_Fraction_Picture() {
 	
 	return {
 		"data": function() {

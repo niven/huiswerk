@@ -1,6 +1,8 @@
 // TODO: avoid loading files we've already loaded
 function load_js( path, callback ) {
 	
+	console.log("Loading " + path );
+
 	var script = document.createElement("script");
 	script.src = path
 

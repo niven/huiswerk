@@ -1,9 +1,3 @@
-load_js("modules/lezen/util.js");
-
-var animals = ["kat", "vos", "kip", "vis", "haas", "das", "bij", "uil", "aap", "beer", "haai", "rog", "hond", "koe"];
-
-levels.push( new Words_And_Picture(2, animals) );
-
 function Words_And_Picture( num_words, words_set ) {
 	
 	return {

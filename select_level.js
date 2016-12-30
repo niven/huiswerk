@@ -1,6 +1,11 @@
 // every module has an index.js which pushes level descriptions in here
 var modules = [];
 
+// some modules have dependencies (like a util.js). The index.js pushes them here to load
+var dependencies = [];
+
+var selected_levels = [];
+
 function select_level_run() {
 
 	// create a fragment for every module-level
@@ -28,19 +33,23 @@ function select_level_run() {
 	container.style.visibility = "visible";
 }
 
-var num_levels_to_load = 0;
+var num_files_to_load = 0;
 function select_level_waitforload() {
 	
-	num_levels_to_load--;
+	num_files_to_load--;
 	
-	if( num_levels_to_load == 0 ) {
+	if( num_files_to_load == 0 ) {
 	
+		// setup the levels
+		selected_levels.forEach( function(el, idx, arr) {
+			levels.push( modules[el].get_level() );
+		});
+
 		// hide the level select screen
 		document.getElementById("select_screen").style.display = "none";
 
 		// hand off to runner
 		runner_init();
-		
 	}
 	
 }
@@ -48,7 +57,6 @@ function select_level_waitforload() {
 function select_level_start() {
 	
 	// gather all selected levels
-	var selected_levels = [];
 	var select_screen = document.getElementById("select_screen");
 	var levels = select_screen.getElementsByTagName("div"); // HTMLCollection
 	for( var i=0; i<levels.length; i++ ) {
@@ -62,11 +70,11 @@ function select_level_start() {
 		show_modal("Selecteer levels", "Selecteer eerst de levels om te oefenen", null);
 		return;
 	}
-	num_levels_to_load = selected_levels.length;
+	num_files_to_load = dependencies.length;
 
-	// load the required levels
-	selected_levels.forEach( function(el, idx, arr) {
-		load_js( "modules/" + modules[el].level_file, select_level_waitforload );
+	// load all dependencies
+	dependencies.forEach( function(el, idx, arr) {
+		load_js( "modules/" + el, select_level_waitforload );
 	});
 	
 }

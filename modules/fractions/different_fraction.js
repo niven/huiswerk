@@ -1,7 +1,5 @@
-load_js("modules/fractions/util.js");
-levels.push( new Level1() );
 
-function Level1() {
+function Different_Fraction() {
 	
 	return {
 		"data": function() {

@@ -1,10 +1,6 @@
 // a module is a self contained group of levels around some topic (fractions, topology, etc)
 // every level.js file in a a modules directory defines a level.
 
-load_js("modules/lezen/util.js");
-
-levels.push( new Letters_Listen() );
-
 function Letters_Listen() {
 	
 	return {

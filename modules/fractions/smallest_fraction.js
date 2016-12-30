@@ -1,12 +1,9 @@
-load_js("modules/fractions/util.js");
-levels.push( new Level_smallest_as_text( 3 ) );
-
-function Level_smallest_as_text( num_fractions ) {
+function Smallest_Fraction( num_fractions ) {
 	
 	return {
 		"data": function() {
 			return {
-				"name": "Kies de kleinste bruek",
+				"name": "Kies de kleinste breuk",
 				"manual": "Je ziet steeds " + num_fractions + " breuken, kies de breuk die het kleinst is.",
 				"correct_to_pass": 20,
 				"fail_extra": 3,
