@@ -69,6 +69,10 @@ function shuffle( array ) {
 
 function array_subset( array, count, exclude ) {
 	
+	if( array.length <= count ) {
+		throw new Error("The array has length " + array.length + " so I can't generate a subset of size " + count + " while excluding an element.");
+	}
+	
 	var result;
 	do {
 		array = shuffle(array);
