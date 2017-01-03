@@ -4,7 +4,7 @@ function load_js( path, callback ) {
 	console.log("Loading " + path );
 
 	var script = document.createElement("script");
-	script.src = path
+	script.src = path + "?no_cache=" + Date.now();
 
 	if( callback != null ) {
 		script.onload = script.onerror = script.onbeforeload = function(ev) {
