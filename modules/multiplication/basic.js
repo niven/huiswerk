@@ -7,7 +7,7 @@ function Basic_Multiplication( digits ) {
 				"name": "Vermenigvuldigen " + digits + "x" + digits,
 				"manual": "Vermenigvuldig de getallen met de schoolmethode.\nOp de eerste regel de eentallen maal het bovenste getal, op de tweede regel de tientallen maal het bovenste getal. Op de derde regel tel je op voor het uiteindelijke antwoord.",
 				"correct_to_pass": 10,
-				"fail_extra": 0,
+				"fail_extra": 1,
 				"digits": digits
 			}
 		},
@@ -39,6 +39,8 @@ function Basic_Multiplication( digits ) {
 			state.mul_a = random_n_digit( state.digits );
 			state.mul_b = random_n_digit( state.digits );
 
+			clear_mul( state.digits );
+
 			document.getElementById("mul_a").textContent = state.mul_a;
 			document.getElementById("mul_b").textContent = state.mul_b;
 
@@ -51,7 +53,7 @@ function Basic_Multiplication( digits ) {
 			// don't care about the element, could be <enter> in the input field or click on the button
 			// reverse the characters since the input this comes from is RTL
 			var answer = document.getElementById("total_sum").value.split("").reverse().join("");
-			console.log("answer: ", answer);
+
 			var result = {};
 
 			result.correct_answer = state.mul_a * state.mul_b;

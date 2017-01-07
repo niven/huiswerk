@@ -144,3 +144,18 @@ function make_mul_inputs( digits ) {
 		activate( decompose_sum );
 	};
 }
+
+function clear_mul( digits ) {
+	
+	for( var a=0; a<digits; a++ ) {
+		for( var b=0; b<digits; b++ ) {
+			var inp = "sub_a" + a + "_b" + b;
+			document.getElementById(inp).value = "";
+		}
+		document.getElementById("decompose_a_" + a).value = "";		
+		document.getElementById("decompose_b_" + a).value = "";		
+		document.getElementById("decompose_sum_" + a).value = "";		
+	}
+	
+	
+}
