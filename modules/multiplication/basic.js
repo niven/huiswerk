@@ -7,7 +7,7 @@ function Basic_Multiplication( digits ) {
 				"name": "Vermenigvuldigen " + digits + "x" + digits,
 				"manual": "Vermenigvuldig de getallen met de schoolmethode.\nOp de eerste regel de eentallen maal het bovenste getal, op de tweede regel de tientallen maal het bovenste getal. Op de derde regel tel je op voor het uiteindelijke antwoord.",
 				"correct_to_pass": 10,
-				"fail_extra": 1,
+				"fail_extra": 0,
 				"digits": digits
 			}
 		},
@@ -30,28 +30,28 @@ function Basic_Multiplication( digits ) {
 				hnd( event.target, state );
 			}
 			add_mul_table( state.stage, process_result_handler );
+			make_mul_inputs( state.digits );
 
 		},
 
 		"make": function( state ) {
 
 			state.mul_a = random_n_digit( state.digits );
-			state.mul_b = random_n_digit(state.digits );
+			state.mul_b = random_n_digit( state.digits );
 
 			document.getElementById("mul_a").textContent = state.mul_a;
 			document.getElementById("mul_b").textContent = state.mul_b;
-			
-			// clear the inputs
-			for( var i=0; i<3; i++ ) {
-				document.getElementById("result_" + i).value = "";
-			}
+
+			document.getElementById("total_sum").value = "";
+
 		},
 
 		"result": function( element, state ) {
 			
 			// don't care about the element, could be <enter> in the input field or click on the button
-			var answer = document.getElementById("result_2").value;
-			
+			// reverse the characters since the input this comes from is RTL
+			var answer = document.getElementById("total_sum").value.split("").reverse().join("");
+			console.log("answer: ", answer);
 			var result = {};
 
 			result.correct_answer = state.mul_a * state.mul_b;
